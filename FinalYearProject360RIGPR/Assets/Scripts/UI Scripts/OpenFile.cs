@@ -12,17 +12,25 @@ using UnityEngine.Video;
 public class OpenFile : MonoBehaviour
 {
     public RawImage rawImage;
-    public string VideoFolderpath = @"C:\TestVideoFolder"; // Video Folder Path 
+    private string VideoFolderpath = @"C:\TestVideoFolder"; // Video Folder Path 
+
+    public GameObject VideoUIIcon;
+    public GameObject VideoGrid;
     
     void Start()
     {
 
 
-        DirectoryInfo dir = new DirectoryInfo(VideoFolderpath);
-        FileInfo[] info = dir.GetFiles("*.*");
+        DirectoryInfo dir = new DirectoryInfo(VideoFolderpath);     // Create info for the given video folder path
+        FileInfo[] info = dir.GetFiles("*.*");                // store files in folder as an array called fileinfo
         foreach (FileInfo f in info)
         {
             Debug.Log(f.Extension);
+            // Add into ui grid
+            GameObject VIcon;
+            VIcon = Instantiate(VideoUIIcon) as GameObject;
+            VIcon.transform.SetParent(VideoGrid.transform);
+            
         }
 
 
