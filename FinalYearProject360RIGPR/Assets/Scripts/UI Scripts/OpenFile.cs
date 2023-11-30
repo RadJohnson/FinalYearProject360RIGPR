@@ -25,12 +25,15 @@ public class OpenFile : MonoBehaviour
         FileInfo[] info = dir.GetFiles("*.*");                // store files in folder as an array called fileinfo
         foreach (FileInfo f in info)
         {
-            Debug.Log(f.Extension);
+            
             // Add into ui grid
             GameObject VIcon;
-            VIcon = Instantiate(VideoUIIcon) as GameObject;
+            VIcon = Instantiate(VideoUIIcon);
             VIcon.transform.SetParent(VideoGrid.transform);
-            
+
+                    //Get Video Thumbnail
+            // VIcon.GetComponent<Image>().sprite = f.OpenRead().;
+
         }
 
 
