@@ -13,7 +13,7 @@ public class Draw : MonoBehaviour
     //[SerializeField] Renderer rend;
     [SerializeField] Color[] colors = new Color[1];
 
-    [SerializeField] private GameObject drawSurface;
+    [SerializeField] private DrawSurface drawSurface;// make more efficient as lots of get component calls
     private bool _touchedLastFrame;
     private Vector2 _lastTouchPos;
 
@@ -24,53 +24,61 @@ public class Draw : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButton(1))
-            DrawPixel();
+        //if (Input.GetMouseButton(1))// this likely causes the issues with connected drawing
+        DrawPixels();
     }
 
-    void DrawPixel()
+    void DrawPixels()
     {
 
         Ray ray = desktopCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        Debug.DrawRay(ray.origin, ray.direction, Color.red);
+        //RAY needs to be mdae more effceint by just setting it once then simply re-using it
 
-        if (Physics.Raycast(ray, out hit))
-        {
-            Vector2 pixelUV = hit.textureCoord;
-
-            pixelUV.x = pixelUV.x * drawSurface.GetComponent<DrawSurface>().texture.width - penSize / 2;
-            pixelUV.y = pixelUV.y * drawSurface.GetComponent<DrawSurface>().texture.height - penSize / 2;
-
-            if (pixelUV.y < 0 || pixelUV.y > drawSurface.GetComponent<DrawSurface>().textureSize.y || pixelUV.x < 0 || pixelUV.x > drawSurface.GetComponent<DrawSurface>().textureSize.x) return;
-
-            if (_touchedLastFrame)// this bit doesnt work properly
+        //Debug.DrawRay(ray.origin, ray.direction, Color.red);
+        
+        
+        if (Input.GetMouseButton(1))
+            if (Physics.Raycast(ray, out hit))
             {
-                drawSurface.GetComponent<DrawSurface>().texture.SetPixels((int)pixelUV.x, (int)pixelUV.y, penSize, penSize, colors);
+                Vector2 pixelUV = hit.textureCoord;
 
-                for (float f = 0.01f; f < 1.00f; f += 0.01f)
+                pixelUV.x = pixelUV.x * drawSurface.texture.width - penSize / 2;
+                pixelUV.y = pixelUV.y * drawSurface.texture.height - penSize / 2;
+
+                if (pixelUV.y < 0 || pixelUV.y > drawSurface.textureSize.y || pixelUV.x < 0
+                    || pixelUV.x > drawSurface.textureSize.x)
+                    return;
+                if (!_touchedLastFrame)
+                    _lastTouchPos = new Vector2(pixelUV.x, pixelUV.y);
+
+                if (_touchedLastFrame)// this bit doesnt work properly
                 {
-                    var lerpX = (int)Mathf.Lerp(_lastTouchPos.x, pixelUV.x, f);
-                    var lerpY = (int)Mathf.Lerp(_lastTouchPos.y, pixelUV.y, f);
-                    drawSurface.GetComponent<DrawSurface>().texture.SetPixels(lerpX, lerpY, penSize, penSize, colors);
+                    drawSurface.texture.SetPixels((int)pixelUV.x, (int)pixelUV.y, penSize, penSize, colors);
+
+                    for (float f = 0.01f; f < 1.00f; f += 0.01f)
+                    {
+                        var lerpX = (int)Mathf.Lerp(_lastTouchPos.x, pixelUV.x, f);
+                        var lerpY = (int)Mathf.Lerp(_lastTouchPos.y, pixelUV.y, f);
+                        drawSurface.texture.SetPixels(lerpX, lerpY, penSize, penSize, colors);
+                    }
+                    drawSurface.texture.Apply();
                 }
-                drawSurface.GetComponent<DrawSurface>().texture.Apply();
+
+                _lastTouchPos = new Vector2(pixelUV.x, pixelUV.y);
+                _touchedLastFrame = true;
+                return;
             }
-
-            _lastTouchPos = new Vector2(pixelUV.x, pixelUV.y);
-            _touchedLastFrame = true;
-            return;
-        }
-
         _touchedLastFrame = false;
+
     }
 
 
-    void Reset()
+    void Reset()// this doesnt work correctly
     {
         desktopCamera = GetComponent<Camera>();
-        colors = Enumerable.Repeat(colors[0], penSize * penSize).ToArray();
-        drawSurface = GameObject.Find("DrawSurface");
+        colors = Enumerable.Repeat(colors[0], penSize * penSize).ToArray();//This part specifically
+        //drawSurface = GameObject.Find("DrawSurface").GetComponent<DrawSurface>();
     }
 }

@@ -597,7 +597,7 @@ MonoBehaviour:
   penSize: 10
   colors:
   - {r: 0, g: 0, b: 0, a: 1}
-  drawSurface: {fileID: 626000634}
+  drawSurface: {fileID: 626000640}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
