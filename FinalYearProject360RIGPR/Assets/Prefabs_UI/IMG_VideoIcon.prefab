@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1251336539044646868}
   - component: {fileID: 1129232498256308384}
   - component: {fileID: 2007089776414779012}
+  - component: {fileID: 4609713198132629462}
   m_Layer: 5
   m_Name: IMG_VideoIcon
   m_TagString: Untagged
@@ -119,4 +120,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1129232498256308384}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4609713198132629462}
+        m_TargetAssemblyTypeName: VideoIconScript, Assembly-CSharp
+        m_MethodName: ChooseVideo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4609713198132629462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543506552734692103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f797b5afcf34064684ee339fb82604b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VideoFileURL: 
+  VideoFileName: 
+  videoPlayer: {fileID: 0}
+  vidclip: {fileID: 0}

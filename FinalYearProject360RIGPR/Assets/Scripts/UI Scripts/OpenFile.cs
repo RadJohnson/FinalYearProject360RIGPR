@@ -3,10 +3,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using static UnityEditor.Progress;
 
 
 public class OpenFile : MonoBehaviour
@@ -16,7 +18,7 @@ public class OpenFile : MonoBehaviour
 
     public GameObject VideoUIIcon;
     public GameObject VideoGrid;
-    
+
     void Start()
     {
 
@@ -25,13 +27,19 @@ public class OpenFile : MonoBehaviour
         FileInfo[] info = dir.GetFiles("*.*");                // store files in folder as an array called fileinfo
         foreach (FileInfo f in info)
         {
-            
+
             // Add into ui grid
             GameObject VIcon;
             VIcon = Instantiate(VideoUIIcon);
             VIcon.transform.SetParent(VideoGrid.transform);
+            VIcon.GetComponent<VideoIconScript>().VideoFileURL = f.Directory.ToString();
+            VIcon.GetComponent<VideoIconScript>().VideoFileName = f.Name;
+            Debug.Log(VIcon.GetComponent<VideoIconScript>().VideoFileURL);
 
-                    //Get Video Thumbnail
+            VIcon.GetComponent<VideoIconScript>().vidclip = Resources.Load<VideoClip>(f.Directory.ToString());
+
+
+            //Get Video Thumbnail
             // VIcon.GetComponent<Image>().sprite = f.OpenRead().;
 
         }
