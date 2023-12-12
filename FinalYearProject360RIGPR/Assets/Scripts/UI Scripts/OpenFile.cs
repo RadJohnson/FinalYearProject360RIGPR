@@ -36,7 +36,7 @@ public class OpenFile : MonoBehaviour
             VIcon.GetComponent<VideoIconScript>().VideoFileName = f.Name;
             Debug.Log(VIcon.GetComponent<VideoIconScript>().VideoFileURL);
 
-            VIcon.GetComponent<VideoIconScript>().vidclip = Resources.Load<VideoClip>(f.Directory.ToString());
+    
 
 
             //Get Video Thumbnail

@@ -7,7 +7,7 @@ using UnityEngine.Video;
 public class MainMenuUIScript : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private VideoPlayer videoPlayer;
+   
     void Start()
     {
 
@@ -43,7 +43,7 @@ public class MainMenuUIScript : MonoBehaviour
     //Choose Video from list
     public void ChooseVideo()
     {
-        // Videoplayer URL = Video File URL
+        //Videoplayer URL = Video File URL
 
     }
 

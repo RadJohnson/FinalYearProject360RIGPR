@@ -12,7 +12,6 @@ public class VideoIconScript : MonoBehaviour
     public string VideoFileName;
     private Button button;
     [SerializeField] internal VideoPlayer videoPlayer;
-    [SerializeField] internal VideoClip vidclip;
 
     private void Awake()
     {
@@ -25,7 +24,6 @@ public class VideoIconScript : MonoBehaviour
         Debug.Log("PRESSED BUTTON");
         videoPlayer.url = "file://" + VideoFileURL + "//" + VideoFileName;
         Debug.Log(videoPlayer.url);
-        videoPlayer.clip = vidclip;
         videoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;
         videoPlayer.EnableAudioTrack(0, true);
         videoPlayer.Prepare();
