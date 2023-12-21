@@ -15,6 +15,14 @@ public class VideoPlayback : MonoBehaviour
         {
             videoPlayer.frame -= 60*5;
         }
+        else if (Input.GetKeyDown(KeyCode.K))
+        {
+            if (!videoPlayer.isPaused)
+                videoPlayer.Pause();
+            else 
+                videoPlayer.Play();
+        }
+
     }
   
     void Reset()

@@ -3,7 +3,7 @@ using UnityEngine;
 public class VideoPan360 : MonoBehaviour
 {
     private Vector2 cameraRotation;
-    [SerializeField, Tooltip("Y is minimum camera angle and Y is maximum camera angle")] private Vector2 cameraClampYAxis;
+    [SerializeField, Tooltip("X is minimum camera angle and Y is maximum camera angle")] private Vector2 cameraClampYAxis;
 
     void Update()//may need to clamp the mouse to the window
     {
