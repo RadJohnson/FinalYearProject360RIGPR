@@ -23,6 +23,8 @@ public class VideoPlayback : MonoBehaviour
                 videoPlayer.Play();
         }
 
+    
+
     }
   
     void Reset()
