@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 
 public class Draw : MonoBehaviour
 {
-    [SerializeField] Camera desktopCamera;
+    [SerializeField] Camera camera;
 
     [SerializeField] int penSize;//can be changed later to a Vector2 just an int now to draw to pixels in a square shaped brush
 
@@ -19,7 +19,8 @@ public class Draw : MonoBehaviour
 
     private void Start()
     {
-        colors = Enumerable.Repeat(colors[0], penSize * penSize).ToArray();//quick way to just do a for loop I think and can double check this by doing a for loop
+        Reset();
+        //colors = Enumerable.Repeat(colors[0], penSize * penSize).ToArray();//quick way to just do a for loop I think and can double check this by doing a for loop
     }
 
     void Update()
@@ -31,16 +32,16 @@ public class Draw : MonoBehaviour
     void DrawPixels()
     {
 
-        Ray ray = desktopCamera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         //RAY needs to be mdae more effceint by just setting it once then simply re-using it
 
         //Debug.DrawRay(ray.origin, ray.direction, Color.red);
         
-        
         if (Input.GetMouseButton(1))
             if (Physics.Raycast(ray, out hit))
+            //if (Physics.Raycast(camera.transform.position,Vector3.forward,out hit,10))
             {
                 Vector2 pixelUV = hit.textureCoord;
 
@@ -50,6 +51,7 @@ public class Draw : MonoBehaviour
                 if (pixelUV.y < 0 || pixelUV.y > drawSurface.textureSize.y || pixelUV.x < 0
                     || pixelUV.x > drawSurface.textureSize.x)
                     return;
+
                 if (!_touchedLastFrame)
                     _lastTouchPos = new Vector2(pixelUV.x, pixelUV.y);
 
@@ -77,8 +79,9 @@ public class Draw : MonoBehaviour
 
     void Reset()// this doesnt work correctly
     {
-        desktopCamera = GetComponent<Camera>();
-        colors = Enumerable.Repeat(colors[0], penSize * penSize).ToArray();//This part specifically
-        //drawSurface = GameObject.Find("DrawSurface").GetComponent<DrawSurface>();
+        penSize = 10;//change this later
+        camera = GetComponent<Camera>();
+        colors = Enumerable.Repeat(new Color(0,0,1,1), penSize * penSize).ToArray();//This part specifically
+        drawSurface = GameObject.Find("DrawSurface").GetComponent<DrawSurface>();
     }
 }
