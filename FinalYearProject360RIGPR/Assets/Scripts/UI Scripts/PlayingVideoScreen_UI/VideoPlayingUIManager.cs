@@ -11,13 +11,16 @@ public class VideoPlayingUIManager : MonoBehaviour
     // VideoPlayer
     [SerializeField] private VideoPlayer videoPlayer;
 
+    //Book marks tab
+    [SerializeField] private GameObject BookmarksTab;
+
     // Buttons
     [SerializeField] private Button exitBtn;
     [SerializeField] private Button pauseplayBtn;
     [SerializeField] private Button restartBtn;
     [SerializeField] private Button skipfwdBtn;
     [SerializeField] private Button skipbwdBtn;
-    [SerializeField] private Button bookmarksBtn;
+    [SerializeField] private Button openbookmarksBtn;
 
     public bool isBookmarksOpen;
 
@@ -26,10 +29,13 @@ public class VideoPlayingUIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isBookmarksOpen = false;
+        BookmarksTab.SetActive(false);
 
         exitBtn.onClick.AddListener(Exit_Video); // Exit button
-        pauseplayBtn.onClick.AddListener(Play_Pause); // Play pause button
-        bookmarksBtn.onClick.AddListener(OpenCloseBookmarksTab); // Open Bookmarks Tab
+        //pauseplayBtn.onClick.AddListener(Play_Pause); // Play pause button
+        openbookmarksBtn.onClick.AddListener(OpenCloseBookmarksTab); // Open Bookmarks Tab
+
 
         isBookmarksOpen = false;
 
@@ -72,10 +78,15 @@ public class VideoPlayingUIManager : MonoBehaviour
         if(!isBookmarksOpen) 
         {
             // Open Tab
+            BookmarksTab.SetActive(true);
+            isBookmarksOpen = true;
         }
         else
         {
             // Close tab
+            BookmarksTab.SetActive(false);
+            isBookmarksOpen = false;
+
         }
 
     }
@@ -90,4 +101,6 @@ public class VideoPlayingUIManager : MonoBehaviour
 
     }
 
+  
+ 
 }
