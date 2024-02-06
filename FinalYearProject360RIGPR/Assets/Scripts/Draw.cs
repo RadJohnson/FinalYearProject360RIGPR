@@ -43,6 +43,8 @@ public class Draw : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             //if (Physics.Raycast(camera.transform.position,Vector3.forward,out hit,10))
             {
+
+                Debug.Log(hit.distance);
                 Vector2 pixelUV = hit.textureCoord;
 
                 pixelUV.x = pixelUV.x * drawSurface.texture.width - penSize / 2;
