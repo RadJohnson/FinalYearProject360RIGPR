@@ -3,6 +3,7 @@ using System.Linq;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class Draw : MonoBehaviour
 {
@@ -78,12 +79,22 @@ public class Draw : MonoBehaviour
 
     }
 
+    void ChangeToEraser()
+    {
+        colors = Enumerable.Repeat(new Color(0, 0, 0, 0), penSize * penSize).ToArray();
+    }
 
-    void Reset()// this doesnt work correctly
+    void ChangeColour()
+    {
+        Color brushColor = GetComponent<Button>().colors.normalColor;
+        colors = Enumerable.Repeat(brushColor, penSize * penSize).ToArray();
+    }
+
+    void Reset()
     {
         penSize = 10;//change this later
         camera = GetComponent<Camera>();
-        colors = Enumerable.Repeat(new Color(0,0,1,1), penSize * penSize).ToArray();//This part specifically
+        colors = Enumerable.Repeat(new Color(0,0,1,1), penSize * penSize).ToArray();
         drawSurface = GameObject.Find("DrawSurface").GetComponent<DrawSurface>();
     }
 }
