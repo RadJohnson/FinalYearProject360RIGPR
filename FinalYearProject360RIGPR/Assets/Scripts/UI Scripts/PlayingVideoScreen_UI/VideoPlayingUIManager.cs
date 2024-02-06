@@ -12,15 +12,15 @@ public class VideoPlayingUIManager : MonoBehaviour
     [SerializeField] private VideoPlayer videoPlayer;
 
     //Book marks tab
-    [SerializeField] private GameObject BookmarksTab;
+    [SerializeField] public GameObject BookmarksTab;
 
     // Buttons
-    [SerializeField] private Button exitBtn;
-    [SerializeField] private Button pauseplayBtn;
-    [SerializeField] private Button restartBtn;
-    [SerializeField] private Button skipfwdBtn;
-    [SerializeField] private Button skipbwdBtn;
-    [SerializeField] private Button openbookmarksBtn;
+    [SerializeField] public Button exitBtn;
+    [SerializeField] public Button pauseplayBtn;
+    [SerializeField] public Button restartBtn;
+    [SerializeField] public Button skipfwdBtn;
+    [SerializeField] public Button skipbwdBtn;
+    [SerializeField] public Button openbookmarksBtn;
 
     public bool isBookmarksOpen;
 
@@ -65,6 +65,7 @@ public class VideoPlayingUIManager : MonoBehaviour
     public void Exit_Video()
     {
         SceneManager.LoadScene("UI_WaitingRoom");
+        Debug.Log("Tried to exit");
     }
 
     public void Restart_Video()
