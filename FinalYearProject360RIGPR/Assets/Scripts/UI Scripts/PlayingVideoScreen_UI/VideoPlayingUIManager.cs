@@ -14,6 +14,13 @@ public class VideoPlayingUIManager : MonoBehaviour
     //Book marks tab
     [SerializeField] public GameObject BookmarksTab;
 
+    public GameObject BookmarkIcon;
+
+    public GameObject BookmarksGrid;
+
+    // Input Field
+    public InputField BookmarkNameInput;
+
     // Buttons
     [SerializeField] public Button exitBtn;
     [SerializeField] public Button pauseplayBtn;
@@ -21,6 +28,9 @@ public class VideoPlayingUIManager : MonoBehaviour
     [SerializeField] public Button skipfwdBtn;
     [SerializeField] public Button skipbwdBtn;
     [SerializeField] public Button openbookmarksBtn;
+    [SerializeField] public Button addbookmarkBtn;
+
+
 
     public bool isBookmarksOpen;
 
@@ -33,8 +43,9 @@ public class VideoPlayingUIManager : MonoBehaviour
         BookmarksTab.SetActive(false);
 
         exitBtn.onClick.AddListener(Exit_Video); // Exit button
-        //pauseplayBtn.onClick.AddListener(Play_Pause); // Play pause button
+        pauseplayBtn.onClick.AddListener(Play_Pause); // Play pause button
         openbookmarksBtn.onClick.AddListener(OpenCloseBookmarksTab); // Open Bookmarks Tab
+        addbookmarkBtn.onClick.AddListener(AddBookmark);
 
 
         isBookmarksOpen = false;
@@ -89,6 +100,24 @@ public class VideoPlayingUIManager : MonoBehaviour
             isBookmarksOpen = false;
 
         }
+
+    }
+
+    public void AddBookmark()
+    {
+
+        // Instantiate Prefab
+
+        // Add into ui grid
+        GameObject BIcon;
+        BIcon = Instantiate(BookmarkIcon);
+        BIcon.transform.SetParent(BookmarksGrid.transform);
+        BIcon.GetComponent<BookmarkIconScript>().BookmarkName = BookmarkNameInput.text.ToString();
+        BookmarkNameInput.text = "";
+        // BIcon.GetComponent<BookmarkIconScript>().BookmarkTime = CurrentVideoTime
+      
+
+
 
     }
 
