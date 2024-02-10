@@ -4,36 +4,86 @@ using UnityEngine;
 
 public class PlatformMovement : MonoBehaviour
 {
-    [SerializeField] private Transform[] waypoints;
-    [SerializeField] private float speed;
-    [SerializeField] private float checkDistance = 0.05f;
+    public Transform platform; // Drag the platform GameObject to this variable in the Unity Editor
+    public GameObject[] prefabsToCycle; // Array of prefabs to cycle through
+    public int numberOfObjects = 3; // Number of objects to instantiate
+    public float raiseSpeed = 2f; // Adjust the speed as needed
+    public float pauseTime = 5f; // Pause time in seconds
+    public float spinSpeed = 180f; // Adjust the spin speed as needed
+    public float objectOffset = 0.5f; // Vertical offset (i.e how far above the platform) for cycled objects
 
-    private Transform targetWaypoint;
-    private int currentWaypointIndex = 0;
-    // Start is called before the first frame update
+
+    private bool isRaising = true;
+    private float timeSinceLastPause = 0f;
+    private int currentObjectIndex = 0;
+    private List<GameObject> objectsToCycle;
     void Start()
     {
-        targetWaypoint = waypoints[0];
+        InstantiateObjects();
+        objectsToCycle[currentObjectIndex].SetActive(true);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.position, speed * Time.deltaTime);
+        MovePlatform();
+    }
 
-        if (Vector3.Distance(transform.position, targetWaypoint.position) < checkDistance)
+    void InstantiateObjects()
+    {
+        objectsToCycle = new List<GameObject>();
+
+        // Instantiate and add GameObjects to the list
+        for (int i = 0; i < numberOfObjects; i++)
         {
-            targetWaypoint = GetNextWaypoint();
+            //Instantiate the current prefab in the array
+            GameObject newObject = Instantiate(prefabsToCycle[i % prefabsToCycle.Length], Vector3.zero, Quaternion.identity);
+            objectsToCycle.Add(newObject);
+            newObject.SetActive(false); // Set objects initially inactive
         }
     }
 
-    private Transform GetNextWaypoint()
+    void MovePlatform()
     {
-        currentWaypointIndex++;
-        if(currentWaypointIndex >= waypoints.Length)
+        if (isRaising)
         {
-            currentWaypointIndex = 0;
+            platform.Translate(Vector3.up * raiseSpeed * Time.deltaTime);
+
+            if (platform.position.y >= 0f) // Adjust the maximum height as needed
+            {
+                isRaising = false;
+                timeSinceLastPause = Time.time;
+
+            }
         }
-        return waypoints[currentWaypointIndex];
+        else
+        {
+            if (Time.time - timeSinceLastPause >= pauseTime)
+            {
+                platform.Translate(Vector3.down * raiseSpeed * Time.deltaTime);
+
+                if (platform.position.y <= -10f) // Adjust the starting position as needed
+                {
+                    //Switch to next object/model
+                    SwitchToNextObject();
+                    isRaising = true;
+                }
+            }
+        }
+        // Position and spin the current attached object while the platform is raising
+        if (isRaising || !isRaising)
+        {
+            Vector3 objectPosition = platform.position + Vector3.up * objectOffset;
+            objectsToCycle[currentObjectIndex].transform.position = objectPosition;
+            objectsToCycle[currentObjectIndex].transform.Rotate(Vector3.up, spinSpeed * Time.deltaTime);
+        }
+    }
+
+    void SwitchToNextObject()
+    {
+        // Increment the index to switch to the next object in the list
+        currentObjectIndex = (currentObjectIndex + 1) % numberOfObjects;
+
+        // Set the new object to active
+        objectsToCycle[currentObjectIndex].SetActive(true);
     }
 }
