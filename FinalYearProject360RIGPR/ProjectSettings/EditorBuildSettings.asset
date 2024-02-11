@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/360 Video Desktop.unity
-    guid: 9f89c14354af316458b5b658cd35d858
+    path: Assets/Scenes/TEST NETWORKING SCENE.unity
+    guid: 68933a728db5e3148aa952b8507ab86c
+  - enabled: 1
+    path: Assets/Scenes/360 Video Desktop networking scene.unity
+    guid: 6b9f3bee8d535f44bb5164e5618692f6
   m_configObjects:
     Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: 9ce3466fca1d98248bc7ee358dfda863, type: 2}
     Unity.XR.PXR.Settings: {fileID: 11400000, guid: c73c278c87042c444979c4b078afd01d, type: 2}
