@@ -595,7 +595,7 @@ GameObject:
   - component: {fileID: 7652337229943781953}
   - component: {fileID: 7281715318595046107}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: BookmarkNameTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -761,8 +761,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -549, y: 0}
+  m_SizeDelta: {x: 100, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1496829337777856699
 CanvasRenderer:
@@ -815,6 +815,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BookmarkName: 
+  BookmarkNameTxtObj: {fileID: 7281715318595046107}
   BookmarkTime: 0
   JumpToTimeBtn: {fileID: 487929603413472648}
   DeleteBookmarkBtn: {fileID: 941333322561742603}

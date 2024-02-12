@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine;
 
 public class BookmarkIconScript : MonoBehaviour
 {
     // Start is called before the first frame update
     public string BookmarkName;
+    public TMP_Text BookmarkNameTxtObj;
     public float BookmarkTime;
 
     [SerializeField] private Button JumpToTimeBtn;
@@ -18,6 +20,9 @@ public class BookmarkIconScript : MonoBehaviour
 
         JumpToTimeBtn.onClick.AddListener(JumpToTime); //Jump to the bookmarks time
         DeleteBookmarkBtn.onClick.AddListener(DeleteBookmark); // Delete bookmark
+
+        BookmarkNameTxtObj.text = BookmarkName;
+
 
     }
 

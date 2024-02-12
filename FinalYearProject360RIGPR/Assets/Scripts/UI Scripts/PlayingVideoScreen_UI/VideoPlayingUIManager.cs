@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -19,7 +20,7 @@ public class VideoPlayingUIManager : MonoBehaviour
     public GameObject BookmarksGrid;
 
     // Input Field
-    public InputField BookmarkNameInput;
+    public TMP_InputField BookmarkNameInput;
 
     // Buttons
     [SerializeField] public Button exitBtn;
@@ -39,6 +40,9 @@ public class VideoPlayingUIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        BookmarkNameInput = GameObject.Find("BookmarkNameInputField").GetComponent<TMP_InputField>();
+
         isBookmarksOpen = false;
         BookmarksTab.SetActive(false);
 
@@ -112,9 +116,12 @@ public class VideoPlayingUIManager : MonoBehaviour
         GameObject BIcon;
         BIcon = Instantiate(BookmarkIcon);
         BIcon.transform.SetParent(BookmarksGrid.transform);
-        BIcon.GetComponent<BookmarkIconScript>().BookmarkName = BookmarkNameInput.text.ToString();
-        BookmarkNameInput.text = "";
+        BIcon.GetComponent<BookmarkIconScript>().BookmarkName = BookmarkNameInput.text;
+        Debug.Log(BookmarkNameInput.text);
+        BookmarkNameInput.text = "Unnamed";
+
         // BIcon.GetComponent<BookmarkIconScript>().BookmarkTime = CurrentVideoTime
+        
       
 
 
