@@ -79,18 +79,20 @@ public class Draw : MonoBehaviour
 
     }
 
-    void ChangeToEraser()
+    public void ChangeToEraser()
     {
         colors = Enumerable.Repeat(new Color(0, 0, 0, 0), penSize * penSize).ToArray();
     }
 
-    void ChangeColour()
+    public void ChangeColour(Color newColor)
     {
-        Color brushColor = GetComponent<Button>().colors.normalColor;
-        colors = Enumerable.Repeat(brushColor, penSize * penSize).ToArray();
+        //Color brushColor = GetComponent<Button>().colors.normalColor;
+        //colors = Enumerable.Repeat(brushColor, penSize * penSize).ToArray();
+    
+        colors = Enumerable.Repeat(newColor, penSize * penSize).ToArray();
     }
 
-    void Reset()
+    public void Reset()
     {
         penSize = 10;//change this later
         camera = GetComponent<Camera>();
