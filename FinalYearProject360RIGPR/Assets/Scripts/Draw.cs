@@ -81,7 +81,7 @@ public class Draw : MonoBehaviour
 
     public void ChangeToEraser()
     {
-        colors = Enumerable.Repeat(new Color(0, 0, 0, 0), penSize * penSize).ToArray();
+        colors = Enumerable.Repeat(new Color(0, 0, 0, 0), (penSize + 8) * (penSize + 8)).ToArray();
     }
 
     public void ChangeColour(Color newColor)
