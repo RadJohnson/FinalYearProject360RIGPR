@@ -19,8 +19,8 @@ public class NetworkManagerUI : MonoBehaviour
         NetworkButtons = GetComponentsInChildren<Button>();
 
         NetworkButtons[0].onClick.AddListener(() => { NetworkManager.Singleton.StartHost(); });
-        NetworkButtons[0].onClick.AddListener(() => { SceneManager.LoadScene(1); });
-        NetworkButtons[1].onClick.AddListener(() => { NetworkManager.Singleton.StartHost(); });
-        NetworkButtons[1].onClick.AddListener(() => { SceneManager.LoadScene(1); });
+        //NetworkButtons[0].onClick.AddListener(() => { SceneManager.LoadScene(1); });
+        NetworkButtons[1].onClick.AddListener(() => { NetworkManager.Singleton.StartClient(); });
+        //NetworkButtons[1].onClick.AddListener(() => { SceneManager.LoadScene(1); });
     }
 }
