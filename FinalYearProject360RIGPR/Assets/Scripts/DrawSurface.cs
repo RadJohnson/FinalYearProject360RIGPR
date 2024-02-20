@@ -9,7 +9,7 @@ public class DrawSurface : MonoBehaviour
     [SerializeField] internal Vector2Int textureSize /*= new Vector2Int(2048, 2048)*/;
     [SerializeField] internal Color[] initialColour = new Color[1];
 
-    void Start()
+    public void Start()
     {
         var r = gameObject.GetComponent<Renderer>();
         texture = new Texture2D(textureSize.x, textureSize.y);

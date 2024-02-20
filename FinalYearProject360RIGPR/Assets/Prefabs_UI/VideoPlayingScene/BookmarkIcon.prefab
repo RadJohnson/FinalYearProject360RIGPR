@@ -30,7 +30,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1477944393052780213}
   m_Father: {fileID: 44369049361551405}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -225,12 +226,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 44369049361551405}
+  m_Father: {fileID: 1238033235976620273}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 89.674194, y: -19.350952}
-  m_SizeDelta: {x: 20.660004, y: -77.466995}
+  m_AnchoredPosition: {x: 0, y: -1.173048}
+  m_SizeDelta: {x: -0.0000038146973, y: -42.72001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5862767205545069216
 CanvasRenderer:
@@ -359,7 +360,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1574805204022908658}
   m_Father: {fileID: 44369049361551405}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -479,12 +481,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 44369049361551405}
+  m_Father: {fileID: 6328792152340239933}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -110.71591, y: -19.211914}
-  m_SizeDelta: {x: 164.98749, y: -77.1894}
+  m_AnchoredPosition: {x: -0.0039367676, y: 0.9569149}
+  m_SizeDelta: {x: 0, y: -43.152603}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3956777196714633016
 CanvasRenderer:
@@ -595,7 +597,7 @@ GameObject:
   - component: {fileID: 7652337229943781953}
   - component: {fileID: 7281715318595046107}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: BookmarkNameTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -617,8 +619,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -110.71918, y: 12.426071}
-  m_SizeDelta: {x: 292.8735, y: 28.401}
+  m_AnchoredPosition: {x: -112.12, y: 12.426071}
+  m_SizeDelta: {x: 313.83, y: 28.401}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7652337229943781953
 CanvasRenderer:
@@ -728,6 +730,7 @@ GameObject:
   - component: {fileID: 44369049361551405}
   - component: {fileID: 1496829337777856699}
   - component: {fileID: 5393768450898449498}
+  - component: {fileID: 5028093817937409957}
   m_Layer: 5
   m_Name: BookmarkIcon
   m_TagString: Untagged
@@ -751,17 +754,14 @@ RectTransform:
   - {fileID: 3783125059277514415}
   - {fileID: 4900675788555925349}
   - {fileID: 1483802731808272610}
-  - {fileID: 565410039395173593}
   - {fileID: 6328792152340239933}
-  - {fileID: 1477944393052780213}
   - {fileID: 1238033235976620273}
-  - {fileID: 1574805204022908658}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 749.1559, y: 79.41193}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -549, y: 0}
+  m_SizeDelta: {x: 100, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1496829337777856699
 CanvasRenderer:
@@ -801,6 +801,24 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5028093817937409957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6193127685654276866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24ef7a8d41d4a0245ae91d464c2b05a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BookmarkName: 
+  BookmarkNameTxtObj: {fileID: 7281715318595046107}
+  BookmarkTime: 0
+  videoPlayer: {fileID: 0}
+  JumpToTimeBtn: {fileID: 487929603413472648}
+  DeleteBookmarkBtn: {fileID: 941333322561742603}
 --- !u!1 &7299413249772724520
 GameObject:
   m_ObjectHideFlags: 0
@@ -905,7 +923,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 565410039395173593}
   m_Father: {fileID: 44369049361551405}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -981,12 +1000,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 44369049361551405}
+  m_Father: {fileID: 1483802731808272610}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 134.06396, y: 12.265076}
-  m_SizeDelta: {x: 153.5632, y: 28.724}
+  m_AnchoredPosition: {x: -0.91648, y: -0.32299805}
+  m_SizeDelta: {x: 98.167, y: 28.724}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6706050502255172353
 CanvasRenderer:

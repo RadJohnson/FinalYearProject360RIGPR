@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7099e1cb024762145b8f94836b3e9100
+guid: d91e51c8ffcaf4549b3aa3dca05b930d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -49,7 +49,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 404, y: 144, z: 384, w: 122}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayPauseButtron_Rigpr360vid_0
+      name: SkipForward_0
       rect:
         serializedVersion: 2
-        x: 396
-        y: 144
-        width: 368
-        height: 383
+        x: 151
+        y: 291
+        width: 198
+        height: 189
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,8 +137,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5f1e65f40ef1f4f488b615f42099a204
-      internalID: 1101814099
+      spriteID: 833f5bd0b3f30d343807e5a5dc16f506
+      internalID: 107536249
       vertices: []
       indices: 
       edges: []
@@ -147,14 +147,14 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      PlayPauseButtron_Rigpr360vid_0: 1101814099
+      SkipForward_0: 107536249
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
