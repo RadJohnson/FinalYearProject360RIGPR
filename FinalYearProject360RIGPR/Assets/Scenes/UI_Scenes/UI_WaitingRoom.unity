@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -332,6 +332,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 385729876}
   m_CullTransparentMesh: 1
+--- !u!1 &471605498
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 471605499}
+  - component: {fileID: 471605500}
+  m_Layer: 0
+  m_Name: ChosenVideoManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &471605499
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471605498}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 915.86725, y: 680.8111, z: 19.270271}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &471605500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471605498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cf6c84e403ee6f4bba06afa600499c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &612851690
 GameObject:
   m_ObjectHideFlags: 0
@@ -1773,7 +1817,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1816815117}
   - component: {fileID: 1816815118}
-  - component: {fileID: 1816815119}
   m_Layer: 5
   m_Name: WaitingRoom
   m_TagString: Untagged
@@ -1814,24 +1857,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1816815116}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2055d5fb8d0e7b64f8a74994fe85be7e, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d36213d23b1ca04e9742b85a0f753b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1816815119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1816815116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6fbc96a297be9244bc7291823013f8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rawImage: {fileID: 0}
-  videoPlayer: {fileID: 0}
-  videoURL: 
+  VideoFilePath: 
+  VideoName: {fileID: 1338342521}
 --- !u!1 &1893797059
 GameObject:
   m_ObjectHideFlags: 0
@@ -2331,3 +2361,4 @@ SceneRoots:
   - {fileID: 1074571561}
   - {fileID: 1406865479}
   - {fileID: 2025893916}
+  - {fileID: 471605499}

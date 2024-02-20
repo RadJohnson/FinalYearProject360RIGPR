@@ -42,6 +42,7 @@ public class OpenFile : MonoBehaviour
             VIcon.transform.SetParent(VideoGrid.transform);
             VIcon.GetComponent<VideoIconScript>().VideoFileURL = f.Directory.ToString();
             VIcon.GetComponent<VideoIconScript>().VideoFileName = f.Name;
+            VIcon.GetComponent<VideoIconScript>().videoNameTxt.text = f.Name.ToString();
             Debug.Log(VIcon.GetComponent<VideoIconScript>().VideoFileURL);
 
     
