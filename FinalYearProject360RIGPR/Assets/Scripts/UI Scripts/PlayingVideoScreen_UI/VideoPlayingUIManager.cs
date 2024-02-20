@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Video;
 using UnityEditor;
+using Unity.VisualScripting;
 
 public class VideoPlayingUIManager : MonoBehaviour
 {
@@ -149,11 +150,22 @@ public class VideoPlayingUIManager : MonoBehaviour
         BIcon.GetComponent<BookmarkIconScript>().BookmarkName = BookmarkNameInput.text;
         BIcon.GetComponent<BookmarkIconScript>().BookmarkTime = videoPlayer.frame;
 
+        
+
         Debug.Log(BookmarkNameInput.text);
         BookmarkNameInput.text = "Unnamed";
 
         // BIcon.GetComponent<BookmarkIconScript>().BookmarkTime = CurrentVideoTime
   
+    }
+
+    void SaveBookmarkData()
+    {
+        var bookmarks = GameObject.FindGameObjectsWithTag("bookmark");
+        foreach (var bookmark in bookmarks)
+        {
+            
+        }
     }
 
     public void skipFwd()
@@ -191,6 +203,7 @@ public class VideoPlayingUIManager : MonoBehaviour
     public void eraser()
     {
         drawScript.ChangeToEraser();
+      
     }
 
     public void clearAll()
