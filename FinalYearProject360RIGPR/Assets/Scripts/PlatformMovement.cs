@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlatformMovement : MonoBehaviour
 {
-    public Transform platform; // Drag the platform GameObject to this variable in the Unity Editor
-    public GameObject[] prefabsToCycle; // Array of prefabs to cycle through
-    public int numberOfObjects = 3; // Number of objects to instantiate
-    public float raiseSpeed = 2f; // Adjust the speed as needed
-    public float pauseTime = 5f; // Pause time in seconds
-    public float spinSpeed = 180f; // Adjust the spin speed as needed
+    public Transform platform; 
+    public GameObject[] prefabsToCycle; 
+    public int numberOfObjects = 3; 
+    public float raiseSpeed = 2f; 
+    public float pauseTime = 5f; 
+    public float spinSpeed = 180f; 
     public float objectOffset = 0.5f; // Vertical offset (i.e how far above the platform) for cycled objects
 
 
@@ -38,7 +38,7 @@ public class PlatformMovement : MonoBehaviour
             //Instantiate the current prefab in the array
             GameObject newObject = Instantiate(prefabsToCycle[i % prefabsToCycle.Length], Vector3.zero, Quaternion.identity);
             objectsToCycle.Add(newObject);
-            newObject.SetActive(false); // Set objects initially inactive
+            newObject.SetActive(false); 
         }
     }
 
@@ -48,7 +48,7 @@ public class PlatformMovement : MonoBehaviour
         {
             platform.Translate(Vector3.up * raiseSpeed * Time.deltaTime);
 
-            if (platform.position.y >= 0f) // Adjust the maximum height as needed
+            if (platform.position.y >= 0f) // maximum height 
             {
                 isRaising = false;
                 timeSinceLastPause = Time.time;
@@ -61,9 +61,9 @@ public class PlatformMovement : MonoBehaviour
             {
                 platform.Translate(Vector3.down * raiseSpeed * Time.deltaTime);
 
-                if (platform.position.y <= -10f) // Adjust the starting position as needed
+                if (platform.position.y <= -10f) // starting position
                 {
-                    //Switch to next object/model
+                    
                     SwitchToNextObject();
                     isRaising = true;
                 }
@@ -83,7 +83,6 @@ public class PlatformMovement : MonoBehaviour
         // Increment the index to switch to the next object in the list
         currentObjectIndex = (currentObjectIndex + 1) % numberOfObjects;
 
-        // Set the new object to active
         objectsToCycle[currentObjectIndex].SetActive(true);
     }
 }
