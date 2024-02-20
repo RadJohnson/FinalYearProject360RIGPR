@@ -27,4 +27,6 @@ public class WaitingRoom : MonoBehaviour
         // Open video playing scene
         SceneManager.LoadScene("VideoPlayingScene", LoadSceneMode.Single);
     }
+
+  
 }

@@ -36,7 +36,7 @@ public class VideoPlayingUIManager : MonoBehaviour
     [SerializeField] public Button openbookmarksBtn;
     [SerializeField] public Button addbookmarkBtn;
     //Color Buttons
-    [SerializeField] public Button yellowBtn; 
+    [SerializeField] public Button yellowBtn;
     [SerializeField] public Button blueBtn;
     [SerializeField] public Button redBtn;
     [SerializeField] public Button greenBtn;
@@ -58,6 +58,9 @@ public class VideoPlayingUIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        videoPlayer.url = ChosenVideoScript.VideoFilePath;
+
         videoSlider.maxValue = videoPlayer.frameCount;
         videoSlider.value = videoPlayer.frame;
 
@@ -86,6 +89,8 @@ public class VideoPlayingUIManager : MonoBehaviour
         isBookmarksOpen = false;
 
     }
+
+
 
     // Update is called once per frame
     void Update()

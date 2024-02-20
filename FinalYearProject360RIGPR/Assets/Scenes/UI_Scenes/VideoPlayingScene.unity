@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1015,7 +1015,7 @@ VideoPlayer:
   m_TargetMaterialProperty: <noninit>
   m_RenderMode: 2
   m_AspectRatio: 2
-  m_DataSource: 0
+  m_DataSource: 1
   m_TimeUpdateMode: 2
   m_PlaybackSpeed: 1
   m_AudioOutputMode: 2
@@ -4687,6 +4687,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   videoPlayer: {fileID: 1885850590}
+  drawScript: {fileID: 0}
+  drawSurfaceScript: {fileID: 0}
   BookmarksTab: {fileID: 593886274}
   BookmarkIcon: {fileID: 6193127685654276866, guid: b67c6eecf6bdf7a44a43266629535115, type: 3}
   BookmarksGrid: {fileID: 580148599}
@@ -4698,6 +4700,13 @@ MonoBehaviour:
   skipbwdBtn: {fileID: 475801355}
   openbookmarksBtn: {fileID: 177954422}
   addbookmarkBtn: {fileID: 1544156149}
+  yellowBtn: {fileID: 0}
+  blueBtn: {fileID: 0}
+  redBtn: {fileID: 0}
+  greenBtn: {fileID: 0}
+  eraserBtn: {fileID: 0}
+  clearAllBtn: {fileID: 0}
+  videoSlider: {fileID: 0}
   isBookmarksOpen: 0
 --- !u!4 &1616501401
 Transform:
