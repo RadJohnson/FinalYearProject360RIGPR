@@ -25,7 +25,7 @@ public class WaitingRoom : MonoBehaviour
     public void StartSession()
     {
         // Open video playing scene
-        SceneManager.LoadScene("VideoPlayingScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("360VideoSphereUICopy", LoadSceneMode.Single);
     }
 
   
