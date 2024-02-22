@@ -16,6 +16,7 @@ public class Draw : MonoBehaviour
 
     [SerializeField] private DrawSurface drawSurface;// make more efficient as lots of get component calls
     private bool _touchedLastFrame;
+    private DrawSurface lastUsedDrawSurface;
     private Vector2 _lastTouchPos;
 
     private void Start()
@@ -59,22 +60,23 @@ public class Draw : MonoBehaviour
                     return;
 
                 if (!_touchedLastFrame)
-                    _lastTouchPos = new Vector2(pixelUV.x, pixelUV.y);
+                    drawSurface.lastTouchPos = new Vector2(pixelUV.x, pixelUV.y);
 
-                if (_touchedLastFrame)// this bit doesnt work properly
+                if (_touchedLastFrame && lastUsedDrawSurface == drawSurface)// this bit doesnt work properly as it still needs to try and do a small ammount more of interpolation between a coupld of surfaces
                 {
                     drawSurface.texture.SetPixels((int)pixelUV.x, (int)pixelUV.y, penSize, penSize, colors);
 
                     for (float f = 0.01f; f < 1.00f; f += 0.01f)
                     {
-                        var lerpX = (int)Mathf.Lerp(_lastTouchPos.x, pixelUV.x, f);
-                        var lerpY = (int)Mathf.Lerp(_lastTouchPos.y, pixelUV.y, f);
+                        var lerpX = (int)Mathf.Lerp(drawSurface.lastTouchPos.x, pixelUV.x, f);
+                        var lerpY = (int)Mathf.Lerp(drawSurface.lastTouchPos.y, pixelUV.y, f);
                         drawSurface.texture.SetPixels(lerpX, lerpY, penSize, penSize, colors);
                     }
                     drawSurface.texture.Apply();
                 }
 
-                _lastTouchPos = new Vector2(pixelUV.x, pixelUV.y);
+                drawSurface.lastTouchPos = new Vector2(pixelUV.x, pixelUV.y);
+                lastUsedDrawSurface = drawSurface;
                 _touchedLastFrame = true;
                 return;
             }
