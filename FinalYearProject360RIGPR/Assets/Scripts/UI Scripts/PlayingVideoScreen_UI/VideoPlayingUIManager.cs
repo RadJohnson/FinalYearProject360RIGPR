@@ -61,8 +61,7 @@ public class VideoPlayingUIManager : MonoBehaviour
 
         videoPlayer.url = ChosenVideoScript.VideoFilePath;
 
-        videoSlider.maxValue = videoPlayer.frameCount;
-        videoSlider.value = videoPlayer.frame;
+
 
         BookmarkNameInput = GameObject.Find("BookmarkNameInputField").GetComponent<TMP_InputField>();
 
@@ -88,6 +87,10 @@ public class VideoPlayingUIManager : MonoBehaviour
 
         isBookmarksOpen = false;
 
+        StartCoroutine(StartTimer());
+        StopCoroutine(StartTimer());
+
+
     }
 
 
@@ -100,7 +103,7 @@ public class VideoPlayingUIManager : MonoBehaviour
 
     public void Play_Pause()
     {
-        if(videoPlayer.isPlaying) // If video is playing then...
+        if (videoPlayer.isPlaying) // If video is playing then...
         {
             // Pause Video
             videoPlayer.Pause();
@@ -127,7 +130,7 @@ public class VideoPlayingUIManager : MonoBehaviour
 
     public void OpenCloseBookmarksTab()
     {
-        if(!isBookmarksOpen) 
+        if (!isBookmarksOpen)
         {
             // Open Tab
             BookmarksTab.SetActive(true);
@@ -155,13 +158,13 @@ public class VideoPlayingUIManager : MonoBehaviour
         BIcon.GetComponent<BookmarkIconScript>().BookmarkName = BookmarkNameInput.text;
         BIcon.GetComponent<BookmarkIconScript>().BookmarkTime = videoPlayer.frame;
 
-        
+
 
         Debug.Log(BookmarkNameInput.text);
         BookmarkNameInput.text = "Unnamed";
 
         // BIcon.GetComponent<BookmarkIconScript>().BookmarkTime = CurrentVideoTime
-  
+
     }
 
     void SaveBookmarkData()
@@ -169,7 +172,7 @@ public class VideoPlayingUIManager : MonoBehaviour
         var bookmarks = GameObject.FindGameObjectsWithTag("bookmark");
         foreach (var bookmark in bookmarks)
         {
-            
+
         }
     }
 
@@ -208,12 +211,23 @@ public class VideoPlayingUIManager : MonoBehaviour
     public void eraser()
     {
         drawScript.ChangeToEraser();
-      
+
     }
 
     public void clearAll()
     {
         drawSurfaceScript.Start();
+    }
+
+
+    IEnumerator StartTimer(float countTime = 1f)
+    {
+
+        yield return new WaitForSeconds(countTime);
+
+
+        videoSlider.maxValue = videoPlayer.frameCount;
+        videoSlider.value = videoPlayer.frame;
     }
 
 }
