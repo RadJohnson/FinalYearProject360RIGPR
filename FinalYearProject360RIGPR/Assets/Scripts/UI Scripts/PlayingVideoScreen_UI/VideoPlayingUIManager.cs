@@ -7,6 +7,8 @@ using UnityEngine;
 using UnityEngine.Video;
 using UnityEditor;
 using Unity.VisualScripting;
+using System.IO;
+using System.Windows.Forms;
 
 public class VideoPlayingUIManager : MonoBehaviour
 {
@@ -43,12 +45,11 @@ public class VideoPlayingUIManager : MonoBehaviour
     // Erasing Annotations
     [SerializeField] public Button eraserBtn;
     [SerializeField] public Button clearAllBtn;
-
-
-
     //Slider
     [SerializeField] public Slider videoSlider;
 
+    //Save FIle
+    public string saveFilePath;
 
 
     public bool isBookmarksOpen;
@@ -58,10 +59,8 @@ public class VideoPlayingUIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        // Set video player url
         videoPlayer.url = ChosenVideoScript.VideoFilePath;
-
-
 
         BookmarkNameInput = GameObject.Find("BookmarkNameInputField").GetComponent<TMP_InputField>();
 
@@ -87,9 +86,12 @@ public class VideoPlayingUIManager : MonoBehaviour
 
         isBookmarksOpen = false;
 
+        // Coroutine timer (sets slider params)
         StartCoroutine(StartTimer());
         StopCoroutine(StartTimer());
 
+        // Create a location for the bookmark file saving
+        saveFilePath = Application.persistentDataPath + "/BoomarkData.json";
 
     }
 
@@ -167,11 +169,35 @@ public class VideoPlayingUIManager : MonoBehaviour
 
     }
 
-    void SaveBookmarkData()
+
+    public void SaveBookmarks()
     {
+
         var bookmarks = GameObject.FindGameObjectsWithTag("bookmark");
+        string numberOfBookmarks = bookmarks.Length.ToString();
+        File.WriteAllText(saveFilePath, numberOfBookmarks);
+
         foreach (var bookmark in bookmarks)
         {
+            string bookmarkName = JsonUtility.ToJson(bookmark.GetComponent<BookmarkIconScript>().BookmarkName);
+            string bookmarkTime = JsonUtility.ToJson(bookmark.GetComponent<BookmarkIconScript>().BookmarkTime.ToString());
+           
+            File.WriteAllText(saveFilePath, bookmarkName + bookmarkTime);
+            
+
+        }
+    }
+
+    public void LoadBookmarks()
+    {
+
+        // For the number of bookmarks
+        foreach (var bookmark in bookmarks)
+        {
+          
+            //Instantiate a bookmark object
+            // Set the name and set the time
+            
 
         }
     }
@@ -229,5 +255,6 @@ public class VideoPlayingUIManager : MonoBehaviour
         videoSlider.maxValue = videoPlayer.frameCount;
         videoSlider.value = videoPlayer.frame;
     }
+
 
 }
