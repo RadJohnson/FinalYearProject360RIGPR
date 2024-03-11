@@ -42,7 +42,7 @@ public class Draw : NetworkBehaviour
             //if (Physics.Raycast(camera.transform.position,Vector3.forward,out hit,10))
             {
 
-                Debug.Log(hit.distance + hit.transform.name);
+                //Debug.Log(hit.distance + hit.transform.name);
                 
                 drawSurface = hit.collider.gameObject.GetComponent<DrawSurface>();
 
@@ -60,12 +60,15 @@ public class Draw : NetworkBehaviour
 
                 if (_touchedLastFrame)// this bit doesnt work properly
                 {
+
+                    //drawSurface.UpdateTextureServerRpc((int)pixelUV.x, (int)pixelUV.y, penSize, colors);
                     drawSurface.texture.SetPixels((int)pixelUV.x, (int)pixelUV.y, penSize, penSize, colors);
 
                     for (float f = 0.01f; f < 1.00f; f += 0.01f)
                     {
                         var lerpX = (int)Mathf.Lerp(_lastTouchPos.x, pixelUV.x, f);
                         var lerpY = (int)Mathf.Lerp(_lastTouchPos.y, pixelUV.y, f);
+                        //drawSurface.UpdateTextureServerRpc(lerpX, lerpY, penSize, colors);
                         drawSurface.texture.SetPixels(lerpX, lerpY, penSize, penSize, colors);
                     }
                     drawSurface.texture.Apply();

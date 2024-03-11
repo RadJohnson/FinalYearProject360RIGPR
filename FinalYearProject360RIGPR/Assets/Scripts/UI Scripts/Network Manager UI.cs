@@ -9,6 +9,8 @@ public class NetworkManagerUI : MonoBehaviour
 {
     [SerializeField] Button[] NetworkButtons;
 
+    [SerializeField] Transform drawSurfaceToSpawn;
+
     private void Start()
     {
         Reset();
@@ -18,7 +20,22 @@ public class NetworkManagerUI : MonoBehaviour
     {
         NetworkButtons = GetComponentsInChildren<Button>();
 
-        NetworkButtons[0].onClick.AddListener(() => { NetworkManager.Singleton.StartHost();});
+        NetworkButtons[0].onClick.AddListener(() =>
+        {
+            NetworkManager.Singleton.StartHost();
+            //Transform spawnedObj = Instantiate(drawSurfaceToSpawn);
+            //spawnedObj.GetComponent<NetworkObject>().Spawn(true);
+            //Transform[] childList = new Transform[spawnedObj.childCount];
+            //for (int i = 0; i < childList.Length; i++)
+            //{
+            //    childList[i] = spawnedObj.GetChild(i);
+            //}
+            //foreach (Transform child in childList)
+            //{
+            //    child.GetComponent<NetworkObject>().Spawn();
+            //
+            //}
+        });
         //NetworkButtons[0].onClick.AddListener(() => { SceneManager.LoadScene(1); });
         NetworkButtons[1].onClick.AddListener(() => { NetworkManager.Singleton.StartClient(); });
         //NetworkButtons[1].onClick.AddListener(() => { SceneManager.LoadScene(1); });
