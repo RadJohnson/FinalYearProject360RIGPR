@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6168551621748984260}
   - component: {fileID: 8331971308526417560}
   - component: {fileID: 4202677998798426109}
+  - component: {fileID: 1840508880227398857}
   m_Layer: 0
   m_Name: PC_User_Drawing
   m_TagString: MainCamera
@@ -244,3 +245,15 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &1840508880227398857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4571880214104251890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee4a0a223ec5d194b9078c4908a21361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

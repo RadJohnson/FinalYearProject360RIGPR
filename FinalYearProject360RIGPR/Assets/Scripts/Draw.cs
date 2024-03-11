@@ -1,11 +1,8 @@
-using System;
 using System.Linq;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.UI;
+using Unity.Netcode;
 
-public class Draw : MonoBehaviour
+public class Draw : NetworkBehaviour
 {
     [SerializeField] Camera camera;
 
@@ -40,7 +37,7 @@ public class Draw : MonoBehaviour
 
         //Debug.DrawRay(ray.origin, ray.direction, Color.red);
         
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1)/* && IsServer*/)
             if (Physics.Raycast(ray, out hit))
             //if (Physics.Raycast(camera.transform.position,Vector3.forward,out hit,10))
             {
