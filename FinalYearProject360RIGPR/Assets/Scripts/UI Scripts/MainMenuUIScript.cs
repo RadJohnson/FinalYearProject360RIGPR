@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
@@ -31,7 +32,17 @@ public class MainMenuUIScript : MonoBehaviour
     // Open User Manual
     public void OpenUserManual()
     {
+        SceneManager.LoadScene(5);
+    }
 
+    public void OpenUserManualPageTwo()
+    {
+        SceneManager.LoadScene(6);
+    }
+
+    public void OpenMainMenu()
+    {
+        SceneManager.LoadScene(2);
     }
 
             // Loading Video Files
