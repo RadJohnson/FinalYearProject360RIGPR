@@ -1,15 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Net;
+using System.Net.Sockets;
+using Unity.Netcode.Transports.UTP;
+using TMPro;
 
 public class NetworkManagerUI : MonoBehaviour
 {
     [SerializeField] Button[] NetworkButtons;
+    [SerializeField] TMP_InputField ipInput;
 
-    [SerializeField] Transform drawSurfaceToSpawn;
+    [SerializeField] TextMeshProUGUI ipAdress;
+
+    [SerializeField]private string myAddressLocal;
 
     private void Start()
     {
@@ -23,21 +28,28 @@ public class NetworkManagerUI : MonoBehaviour
         NetworkButtons[0].onClick.AddListener(() =>
         {
             NetworkManager.Singleton.StartHost();
-            //Transform spawnedObj = Instantiate(drawSurfaceToSpawn);
-            //spawnedObj.GetComponent<NetworkObject>().Spawn(true);
-            //Transform[] childList = new Transform[spawnedObj.childCount];
-            //for (int i = 0; i < childList.Length; i++)
-            //{
-            //    childList[i] = spawnedObj.GetChild(i);
-            //}
-            //foreach (Transform child in childList)
-            //{
-            //    child.GetComponent<NetworkObject>().Spawn();
-            //
-            //}
+            IPHostEntry hostEntry = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (IPAddress ip in hostEntry.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    myAddressLocal = ip.ToString();
+                    break;
+                }
+            }
+            NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Address = myAddressLocal;
+
+            ipAdress = Instantiate(ipAdress,gameObject.transform.parent);
+            
+            ipAdress.text = myAddressLocal;
         });
         //NetworkButtons[0].onClick.AddListener(() => { SceneManager.LoadScene(1); });
-        NetworkButtons[1].onClick.AddListener(() => { NetworkManager.Singleton.StartClient(); });
+        NetworkButtons[1].onClick.AddListener(() => 
+        {
+            NetworkManager.Singleton.StartClient();
+            
+            NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Address = ipInput.ToString();
+        });
         //NetworkButtons[1].onClick.AddListener(() => { SceneManager.LoadScene(1); });
     }
 }
