@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -7,8 +8,7 @@ using UnityEngine;
 using UnityEngine.Video;
 using UnityEditor;
 using Unity.VisualScripting;
-using System.IO;
-using System.Windows.Forms;
+
 
 public class VideoPlayingUIManager : MonoBehaviour
 {
@@ -91,8 +91,10 @@ public class VideoPlayingUIManager : MonoBehaviour
         StopCoroutine(StartTimer());
 
         // Create a location for the bookmark file saving
-        saveFilePath = Application.persistentDataPath + "/BoomarkData.json";
+        saveFilePath = Application.persistentDataPath + "/BookmarkSaves.json";
 
+        
+       // ~Currently breaks the program so is commented for pushing to branch~ LoadBookmarks();
     }
 
 
@@ -120,6 +122,9 @@ public class VideoPlayingUIManager : MonoBehaviour
 
     public void Exit_Video()
     {
+
+        SaveBookmarks();
+
         SceneManager.LoadScene("UI_WaitingRoom");
         Debug.Log("Tried to exit");
     }
@@ -157,8 +162,8 @@ public class VideoPlayingUIManager : MonoBehaviour
         GameObject BIcon;
         BIcon = Instantiate(BookmarkIcon);
         BIcon.transform.SetParent(BookmarksGrid.transform);
-        BIcon.GetComponent<BookmarkIconScript>().BookmarkName = BookmarkNameInput.text;
-        BIcon.GetComponent<BookmarkIconScript>().BookmarkTime = videoPlayer.frame;
+        BIcon.GetComponent<BookmarkIconScript>().bookmarkData.BookmarkNameData = BookmarkNameInput.text;
+        BIcon.GetComponent<BookmarkIconScript>().bookmarkData.BookmarkTimeData = videoPlayer.frame;
 
 
 
@@ -166,6 +171,8 @@ public class VideoPlayingUIManager : MonoBehaviour
         BookmarkNameInput.text = "Unnamed";
 
         // BIcon.GetComponent<BookmarkIconScript>().BookmarkTime = CurrentVideoTime
+
+        
 
     }
 
@@ -179,10 +186,10 @@ public class VideoPlayingUIManager : MonoBehaviour
 
         foreach (var bookmark in bookmarks)
         {
-            string bookmarkName = JsonUtility.ToJson(bookmark.GetComponent<BookmarkIconScript>().BookmarkName);
-            string bookmarkTime = JsonUtility.ToJson(bookmark.GetComponent<BookmarkIconScript>().BookmarkTime.ToString());
-           
-            File.WriteAllText(saveFilePath, bookmarkName + bookmarkTime);
+            string bookmarkName = JsonUtility.ToJson(bookmark.GetComponent<BookmarkIconScript>(), true);
+     
+
+            File.WriteAllText(saveFilePath, bookmarkName);
             
 
         }
@@ -192,14 +199,26 @@ public class VideoPlayingUIManager : MonoBehaviour
     {
 
         // For the number of bookmarks
-        foreach (var bookmark in bookmarks)
-        {
-          
-            //Instantiate a bookmark object
-            // Set the name and set the time
-            
 
+        //foreach (var bookmark in bookmarks)
+        
+
+        string newBookmark = File.ReadAllText(saveFilePath);
+        BookmarkIconScript.BookmarkData newBookmarkIconScriptData = JsonUtility.FromJson<BookmarkIconScript.BookmarkData>(newBookmark);
+
+        if(newBookmarkIconScriptData != null)
+        { 
+        GameObject BIcon;
+        BIcon = Instantiate(BookmarkIcon);
+        BIcon.transform.SetParent(BookmarksGrid.transform);
+        BIcon.GetComponent<BookmarkIconScript>().bookmarkData.BookmarkNameData = newBookmarkIconScriptData.BookmarkNameData;
+        BIcon.GetComponent<BookmarkIconScript>().bookmarkData.BookmarkTimeData = newBookmarkIconScriptData.BookmarkTimeData;
+        
         }
+     
+
+
+        //}
     }
 
     public void skipFwd()
