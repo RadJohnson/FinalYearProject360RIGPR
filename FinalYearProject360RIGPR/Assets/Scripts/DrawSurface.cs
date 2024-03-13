@@ -25,11 +25,10 @@ public class DrawSurface : NetworkBehaviour
 
     IEnumerator GetRenderTexturePixel(Texture2D tex)
     {
-        Texture2D tempTex = new Texture2D(tex.width, tex.height);
+        //Texture2D tempTex = new Texture2D(tex.width, tex.height);
         yield return new WaitForEndOfFrame();
-        tempTex.ReadPixels(new Rect(0, 0, tex.width, tex.height), 0, 0);
-        tempTex.Apply();
-        N = tempTex.EncodeToPNG();
+        //tempTex.ReadPixels(new Rect(0, 0, tex.width, tex.height), 0, 0);
+        //tempTex.Apply();
     }
     private void Update()
     {
@@ -37,15 +36,21 @@ public class DrawSurface : NetworkBehaviour
 
         //nVarTexture2d.Value.Apply();
 
-        texi = texture;
+        //texi = texture;
 
         if (IsServer)
         {
-            StartCoroutine(GetRenderTexturePixel(texi));
-        }   
+
+            //StartCoroutine(GetRenderTexturePixel(texture));
+        }
         if (IsClient)
         {
-            SendTexturesServerRpc(N);
+            if (IsOwner)
+            {
+                N = texture.EncodeToPNG();
+                SendTexturesClientRpc(N);
+            }
+            texture.Apply();
         }
 
     }
@@ -53,7 +58,6 @@ public class DrawSurface : NetworkBehaviour
     public void Start()
     {
         Reset();
-        texi = texture;
     }
 
     void Reset()
@@ -77,20 +81,22 @@ public class DrawSurface : NetworkBehaviour
         //r.material.mainTexture = texture;
     }
 
-    [ServerRpc]
-    public void UpdateTextureServerRpc(int _lerpX,int _lerpY,int _penSize, Color[] _colors)
-    {
-        texture.SetPixels(_lerpX, _lerpY, _penSize, _penSize, _colors);
-
-        Debug.Log(texture);
-    }
 
     [ServerRpc]
     void SendTexturesServerRpc(byte[] receivedByte)
     {
-        texi = null;
-        texi = new Texture2D(1, 1);
-        texi.LoadImage(receivedByte);
-        texi.Apply();
+        //SendTexturesClientRpc(receivedByte);
+        //texture.Apply();
+    }
+    [ClientRpc]
+    void SendTexturesClientRpc(byte[] receivedByte)
+    {
+        if (IsOwner) //Only send an RPC to the server on the client that owns the NetworkObject that owns this NetworkBehaviour instance
+        {
+            SendTexturesServerRpc(receivedByte);
+        }
+
+        texture.LoadImage(receivedByte);
+        //texture.Apply();
     }
 }
