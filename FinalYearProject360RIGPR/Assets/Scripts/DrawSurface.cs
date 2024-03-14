@@ -54,6 +54,8 @@ public class DrawSurface : NetworkBehaviour
         }
 
     }
+    internal Vector2 lastTouchPos;
+
 
     public void Start()
     {

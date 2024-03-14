@@ -8,22 +8,20 @@ public class Draw : NetworkBehaviour
 
     [SerializeField] int penSize;//can be changed later to a Vector2 just an int now to draw to pixels in a square shaped brush
 
-    //[SerializeField] Renderer rend;
     [SerializeField] Color[] colors = new Color[1];
 
     [SerializeField] private DrawSurface drawSurface;// make more efficient as lots of get component calls
     private bool _touchedLastFrame;
+    private DrawSurface lastUsedDrawSurface;
     private Vector2 _lastTouchPos;
 
     private void Start()
     {
         Reset();
-        //colors = Enumerable.Repeat(colors[0], penSize * penSize).ToArray();//quick way to just do a for loop I think and can double check this by doing a for loop
     }
 
     void Update()
     {
-        //if (Input.GetMouseButton(1))// this likely causes the issues with connected drawing
         DrawPixels();
     }
 
@@ -33,13 +31,12 @@ public class Draw : NetworkBehaviour
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        //RAY needs to be mdae more effceint by just setting it once then simply re-using it
+        //RAY needs to be made more effceint by just setting it once then simply re-using it or at least RaycastHit
 
         //Debug.DrawRay(ray.origin, ray.direction, Color.red);
         
         if (Input.GetMouseButton(1)/* && IsServer*/)
             if (Physics.Raycast(ray, out hit))
-            //if (Physics.Raycast(camera.transform.position,Vector3.forward,out hit,10))
             {
 
                 //Debug.Log(hit.distance + hit.transform.name);
@@ -56,25 +53,24 @@ public class Draw : NetworkBehaviour
                     return;
 
                 if (!_touchedLastFrame)
-                    _lastTouchPos = new Vector2(pixelUV.x, pixelUV.y);
+                    drawSurface.lastTouchPos = new Vector2(pixelUV.x, pixelUV.y);
 
-                if (_touchedLastFrame)// this bit doesnt work properly
+                if (_touchedLastFrame && lastUsedDrawSurface == drawSurface)
                 {
 
-                    //drawSurface.UpdateTextureServerRpc((int)pixelUV.x, (int)pixelUV.y, penSize, colors);
                     drawSurface.texture.SetPixels((int)pixelUV.x, (int)pixelUV.y, penSize, penSize, colors);
 
                     for (float f = 0.01f; f < 1.00f; f += 0.01f)
                     {
-                        var lerpX = (int)Mathf.Lerp(_lastTouchPos.x, pixelUV.x, f);
-                        var lerpY = (int)Mathf.Lerp(_lastTouchPos.y, pixelUV.y, f);
-                        //drawSurface.UpdateTextureServerRpc(lerpX, lerpY, penSize, colors);
+                        var lerpX = (int)Mathf.Lerp(drawSurface.lastTouchPos.x, pixelUV.x, f);
+                        var lerpY = (int)Mathf.Lerp(drawSurface.lastTouchPos.y, pixelUV.y, f);
                         drawSurface.texture.SetPixels(lerpX, lerpY, penSize, penSize, colors);
                     }
                     drawSurface.texture.Apply();
                 }
 
-                _lastTouchPos = new Vector2(pixelUV.x, pixelUV.y);
+                drawSurface.lastTouchPos = new Vector2(pixelUV.x, pixelUV.y);
+                lastUsedDrawSurface = drawSurface;
                 _touchedLastFrame = true;
                 return;
             }
@@ -88,10 +84,7 @@ public class Draw : NetworkBehaviour
     }
 
     public void ChangeColour(Color newColor)
-    {
-        //Color brushColor = GetComponent<Button>().colors.normalColor;
-        //colors = Enumerable.Repeat(brushColor, penSize * penSize).ToArray();
-    
+    {    
         colors = Enumerable.Repeat(newColor, penSize * penSize).ToArray();
     }
 
