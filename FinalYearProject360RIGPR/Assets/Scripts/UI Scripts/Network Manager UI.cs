@@ -44,6 +44,7 @@ public class NetworkManagerUI : MonoBehaviour
                 }
             }
             NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Address = myAddressLocal;
+            
             //NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Port = portInput.text;
 
             //int _port;
@@ -63,7 +64,14 @@ public class NetworkManagerUI : MonoBehaviour
         {
 
             //NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>();
-            
+
+            /*
+            if(ipInput.text == "")
+            {
+                ipInput.text = "127.0.0.1";
+            }
+            */
+
             NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Address = ipInput.text;
             //int _port;
             //int.TryParse(portInput.text,out _port);
