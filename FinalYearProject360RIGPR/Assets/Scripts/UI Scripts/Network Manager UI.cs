@@ -44,7 +44,7 @@ public class NetworkManagerUI : MonoBehaviour
                 }
             }
             NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Address = myAddressLocal;
-           // NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Port = portInput.text;
+            //NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Port = portInput.text;
 
             //int _port;
             //int.TryParse(portInput.text,out _port);
@@ -75,7 +75,6 @@ public class NetworkManagerUI : MonoBehaviour
             //NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().SetConnectionData(NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.ServerEndPoint);
 
             //NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.ServerListenAddress = myAddressLocal;
-
 
             NetworkManager.Singleton.StartClient();
         });

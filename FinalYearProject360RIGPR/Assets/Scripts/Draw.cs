@@ -35,7 +35,7 @@ public class Draw : NetworkBehaviour
 
         //Debug.DrawRay(ray.origin, ray.direction, Color.red);
 
-        if (Input.GetMouseButton(1) && IsOwner && !IsClient)
+        if (Input.GetMouseButton(1) && IsOwner)
             if (Physics.Raycast(ray, out hit))
             {
 
