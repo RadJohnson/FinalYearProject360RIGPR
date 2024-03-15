@@ -1,10 +1,10 @@
 using System.Linq;
-using UnityEngine;
 using Unity.Netcode;
+using UnityEngine;
 
 public class Draw : NetworkBehaviour
 {
-    [SerializeField] Camera camera;
+    [SerializeField] Camera rayOrigin;
 
     [SerializeField] int penSize;//can be changed later to a Vector2 just an int now to draw to pixels in a square shaped brush
 
@@ -20,27 +20,27 @@ public class Draw : NetworkBehaviour
         Reset();
     }
 
-    void Update()
+    private void Update()
     {
         DrawPixels();
     }
 
-    void DrawPixels()
+    private void DrawPixels()
     {
 
-        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = rayOrigin.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         //RAY needs to be made more effceint by just setting it once then simply re-using it or at least RaycastHit
 
         //Debug.DrawRay(ray.origin, ray.direction, Color.red);
-        
-        if (Input.GetMouseButton(1)/* && IsServer*/)
+
+        if (Input.GetMouseButton(1) && IsOwner)
             if (Physics.Raycast(ray, out hit))
             {
 
                 //Debug.Log(hit.distance + hit.transform.name);
-                
+
                 drawSurface = hit.collider.gameObject.GetComponent<DrawSurface>();
 
                 Vector2 pixelUV = hit.textureCoord;
@@ -66,7 +66,6 @@ public class Draw : NetworkBehaviour
                         var lerpY = (int)Mathf.Lerp(drawSurface.lastTouchPos.y, pixelUV.y, f);
                         drawSurface.texture.SetPixels(lerpX, lerpY, penSize, penSize, colors);
                     }
-                    drawSurface.texture.Apply();
                 }
 
                 drawSurface.lastTouchPos = new Vector2(pixelUV.x, pixelUV.y);
@@ -78,21 +77,21 @@ public class Draw : NetworkBehaviour
 
     }
 
-    public void ChangeToEraser()
+    internal void ChangeToEraser()
     {
         colors = Enumerable.Repeat(new Color(0, 0, 0, 0), (penSize + 8) * (penSize + 8)).ToArray();
     }
 
-    public void ChangeColour(Color newColor)
-    {    
+    internal void ChangeBrushColour(Color newColor)
+    {
         colors = Enumerable.Repeat(newColor, penSize * penSize).ToArray();
     }
 
-    public void Reset()
+    internal void Reset()
     {
         penSize = 10;//change this later
-        camera = GetComponent<Camera>();
-        colors = Enumerable.Repeat(new Color(0,0,1,1), penSize * penSize).ToArray();
+        rayOrigin = GetComponent<Camera>();
+        colors = Enumerable.Repeat(new Color(0, 0, 1, 1), penSize * penSize).ToArray();
         drawSurface = GameObject.Find("DrawSurface").GetComponent<DrawSurface>();
     }
 }

@@ -235,22 +235,22 @@ public class VideoPlayingUIManager : MonoBehaviour
 
     public void changeColourRed()
     {
-        drawScript.ChangeColour(Color.red);
+        drawScript.ChangeBrushColour(Color.red);
     }
 
     public void changeColourYellow()
     {
-        drawScript.ChangeColour(Color.yellow);
+        drawScript.ChangeBrushColour(Color.yellow);
     }
 
     public void changeColourBlue()
     {
-        drawScript.ChangeColour(Color.blue);
+        drawScript.ChangeBrushColour(Color.blue);
     }
 
     public void changeColourGreen()
     {
-        drawScript.ChangeColour(Color.green);
+        drawScript.ChangeBrushColour(Color.green);
     }
 
     public void eraser()
