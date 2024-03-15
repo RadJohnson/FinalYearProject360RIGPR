@@ -64,7 +64,7 @@ public class NetworkManagerUI : MonoBehaviour
 
             //NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>();
             
-            NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Address = ipAdress.text;
+            NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Address = ipInput.text;
             //int _port;
             //int.TryParse(portInput.text,out _port);
             //
