@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -332,6 +332,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 422062796}
   m_CullTransparentMesh: 1
+--- !u!1 &484141130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 484141131}
+  - component: {fileID: 484141133}
+  - component: {fileID: 484141132}
+  m_Layer: 5
+  m_Name: IMG_Restart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &484141131
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484141130}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1816815117}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 276, y: -457.06}
+  m_SizeDelta: {x: 108.814, y: 105.876}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &484141132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484141130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 205533759, guid: bc5215a25bed4064891533b1ce593cc8, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &484141133
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484141130}
+  m_CullTransparentMesh: 1
 --- !u!1 &488495158
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,7 +575,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -190, y: 18}
+  m_AnchoredPosition: {x: -416, y: -290}
   m_SizeDelta: {x: 129.844, y: 116.58}
   m_Pivot: {x: 0.18711963, y: 0.5}
 --- !u!114 &581944038
@@ -975,7 +1050,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 771.17, y: -70.671}
+  m_AnchoredPosition: {x: 594, y: -361}
   m_SizeDelta: {x: 129.843, y: 129.843}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1473025168
@@ -1184,8 +1259,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8.055, y: -82.277}
-  m_SizeDelta: {x: 1722.4, y: 749.667}
+  m_AnchoredPosition: {x: 8.055, y: -108.72}
+  m_SizeDelta: {x: 1722.4, y: 802.554}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1676496470
 MonoBehaviour:
@@ -1207,11 +1282,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u2022The timeline interface at the bottom of the screen can be used to
-    control the video you are currently viewing.\n\n\u2022There are two buttons to
-    skip the video forwards or backwards by 10 seconds across clients when pressed:
-    \n\n\u2022This button can be used to pause and start the video across the clients:
-    \n\n\u2022\n\n\u2022"
+  m_text: "\u2022 To draw annotations onto the video, hold down the right mouse button.
+    You can freely draw whatever you like. The colours at the bottom can be clicked
+    to chnage the annotation colour respectively.\n\n\u2022  An eraser can also be
+    selected and used via the \"eraser\" button, or you can clear all annotations
+    via the 'Clear all' button.\n\n\u2022 The timeline interface at the bottom of
+    the screen can be used to control the video you are currently viewing.\n\n\u2022
+    There are two buttons to skip the video forwards or backwards by 10 seconds across
+    clients when pressed: \n\n\u2022 This button can be used to pause and start the
+    video across the clients: \n\n\u2022 And finally, this button can restart the
+    video altogether: "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1238,8 +1318,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
-  m_fontSizeBase: 48
+  m_fontSize: 42
+  m_fontSizeBase: 42
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1325,6 +1405,7 @@ RectTransform:
   - {fileID: 581944037}
   - {fileID: 1985015838}
   - {fileID: 1473025167}
+  - {fileID: 484141131}
   m_Father: {fileID: 2025893916}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1473,7 +1554,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -60.160004, y: 17.999962}
+  m_AnchoredPosition: {x: -286.16003, y: -290.00006}
   m_SizeDelta: {x: 129.844, y: 116.58}
   m_Pivot: {x: 0.18711963, y: 0.5}
 --- !u!114 &1985015839
