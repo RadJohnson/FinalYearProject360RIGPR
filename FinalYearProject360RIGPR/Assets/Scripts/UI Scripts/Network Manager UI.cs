@@ -13,10 +13,15 @@ public class NetworkManagerUI : MonoBehaviour
 {
     [SerializeField] Button[] NetworkButtons;
     [SerializeField] TMP_InputField ipInput;
+    [SerializeField] TMP_InputField portInput;
 
     [SerializeField] TextMeshProUGUI ipAdress;
 
     [SerializeField] private string myAddressLocal;
+
+
+    public const string k_DefaultIP = "127.0.0.1";
+    public const int k_DefaultPort = 9998;
 
     private void Start()
     {
@@ -29,7 +34,6 @@ public class NetworkManagerUI : MonoBehaviour
 
         NetworkButtons[0].onClick.AddListener(() =>
         {
-            NetworkManager.Singleton.StartHost();
             IPHostEntry hostEntry = Dns.GetHostEntry(Dns.GetHostName());
             foreach (IPAddress ip in hostEntry.AddressList)
             {
@@ -39,27 +43,49 @@ public class NetworkManagerUI : MonoBehaviour
                     break;
                 }
             }
-            //NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Address = myAddressLocal;
+            NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Address = myAddressLocal;
+           // NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Port = portInput.text;
 
             NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.ServerListenAddress = myAddressLocal;
-            
 
-            //ipAdress = Instantiate(ipAdress, gameObject.transform.parent);
 
-            //ipAdress.text = myAddressLocal;
+            //int _port;
+            //int.TryParse(portInput.text,out _port);
+            ////NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Address = myAddressLocal;
+            //NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().SetConnectionData(myAddressLocal, (ushort)_port);
+            //NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.ServerListenAddress = myAddressLocal;
+
+
+            ipAdress = Instantiate(ipAdress, gameObject.transform.parent);
+            ipAdress.text = myAddressLocal;
+
+            NetworkManager.Singleton.StartHost();
         });
         //NetworkButtons[0].onClick.AddListener(() => { SceneManager.LoadScene(1); });
         NetworkButtons[1].onClick.AddListener(() =>
         {
-            NetworkManager.Singleton.StartClient();
 
             //NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>();
+            
+            NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Address = ipInput.text;
+            //int _port;
+            //int.TryParse(portInput.text,out _port);
+            //
+            //NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().SetConnectionData(myAddressLocal, (ushort)_port);
 
             //NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().SetConnectionData(ipInput.ToString(), NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Port);
-            
-            NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().SetConnectionData(NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.ServerEndPoint);
+
+            //NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().SetConnectionData(NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.ServerEndPoint);
+
+            //NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.ServerListenAddress = myAddressLocal;
+
+
+            NetworkManager.Singleton.StartClient();
         });
         //NetworkButtons[1].onClick.AddListener(() => { SceneManager.LoadScene(1); });
+
+        //portInput.onValueChanged.AddListener();
+
     }
 
     /// <summary>
@@ -92,5 +118,17 @@ public class NetworkManagerUI : MonoBehaviour
         return portValid && true/*NetworkEndpoint.TryParse(ipAddress, portNum, out var networkEndPoint)*/;
     }
 
+    public void JoinWithIP(string ip, string port)
+    {
+        int.TryParse(port, out var portNum);
+        if (portNum <= 0)
+        {
+            portNum = k_DefaultPort;
+        }
+
+        ip = string.IsNullOrEmpty(ip) ? k_DefaultIP : ip;
+
+
+    }
 
 }
