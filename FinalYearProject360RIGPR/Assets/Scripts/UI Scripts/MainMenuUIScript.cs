@@ -34,11 +34,18 @@ public class MainMenuUIScript : MonoBehaviour
     {
         SceneManager.LoadScene(5);
     }
-
+    // Open UM P2
     public void OpenUserManualPageTwo()
     {
         SceneManager.LoadScene(6);
     }
+
+    // Open UM P3
+    public void OpenUserManualPageThree()
+    {
+        SceneManager.LoadScene(7);
+    }
+
 
     public void OpenMainMenu()
     {
