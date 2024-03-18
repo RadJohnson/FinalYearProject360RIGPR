@@ -6,14 +6,13 @@ public class Draw : NetworkBehaviour
 {
     [SerializeField] Camera rayOrigin;
 
-    [SerializeField] int penSize;//can be changed later to a Vector2 just an int now to draw to pixels in a square shaped brush
+    [SerializeField] int penSize;//can likely be changed later to a Vector2 just an int now to draw to pixels in a square shaped brush
 
     [SerializeField] Color[] colors = new Color[1];
 
     [SerializeField] private DrawSurface drawSurface;// make more efficient as lots of get component calls
     private bool _touchedLastFrame;
     private DrawSurface lastUsedDrawSurface;
-    private Vector2 _lastTouchPos;
 
     private void Start()
     {
@@ -29,18 +28,11 @@ public class Draw : NetworkBehaviour
     {
 
         Ray ray = rayOrigin.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        //RAY needs to be made more effceint by just setting it once then simply re-using it or at least RaycastHit
-
-        //Debug.DrawRay(ray.origin, ray.direction, Color.red);
+        RaycastHit hit;//this line could be more efficient but only by not remaking the var every update overall impact is negligable
 
         if (Input.GetMouseButton(1) && IsHost)
             if (Physics.Raycast(ray, out hit))
             {
-
-                //Debug.Log(hit.distance + hit.transform.name);
-
                 drawSurface = hit.collider.gameObject.GetComponent<DrawSurface>();
 
                 Vector2 pixelUV = hit.textureCoord;
@@ -89,7 +81,7 @@ public class Draw : NetworkBehaviour
 
     internal void Reset()
     {
-        penSize = 10;//change this later
+        penSize = 3;//change this later
         rayOrigin = GetComponent<Camera>();
         colors = Enumerable.Repeat(new Color(0, 0, 1, 1), penSize * penSize).ToArray();
         drawSurface = GameObject.Find("DrawSurface").GetComponent<DrawSurface>();
