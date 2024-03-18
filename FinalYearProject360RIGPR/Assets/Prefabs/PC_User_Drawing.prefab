@@ -120,8 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c95acf0bbb4c14240be539d0ed3eccd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 1309497588821817124}
-  penSize: 10
+  rayOrigin: {fileID: 0}
+  penSize: 3
   colors:
   - {r: 0, g: 0, b: 1, a: 1}
   - {r: 0, g: 0, b: 1, a: 1}

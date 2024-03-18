@@ -1,7 +1,6 @@
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.Net;
 using System.Net.Sockets;
 using Unity.Netcode.Transports.UTP;
@@ -11,10 +10,11 @@ public class NetworkManagerUI : MonoBehaviour
 {
     [SerializeField] Button[] NetworkButtons;
     [SerializeField] TMP_InputField ipInput;
+    [SerializeField] TMP_InputField portInput;
 
     [SerializeField] TextMeshProUGUI ipAdress;
 
-    [SerializeField]private string myAddressLocal;
+    [SerializeField] private string myAddressLocal;
 
     private void Start()
     {
@@ -27,7 +27,6 @@ public class NetworkManagerUI : MonoBehaviour
 
         NetworkButtons[0].onClick.AddListener(() =>
         {
-            NetworkManager.Singleton.StartHost();
             IPHostEntry hostEntry = Dns.GetHostEntry(Dns.GetHostName());
             foreach (IPAddress ip in hostEntry.AddressList)
             {
@@ -38,18 +37,51 @@ public class NetworkManagerUI : MonoBehaviour
                 }
             }
             NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Address = myAddressLocal;
-
-            ipAdress = Instantiate(ipAdress,gameObject.transform.parent);
             
+            //NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Port = portInput.text;
+
+            //int _port;
+            //int.TryParse(portInput.text,out _port);
+            ////NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Address = myAddressLocal;
+            //NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().SetConnectionData(myAddressLocal, (ushort)_port);
+            //NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.ServerListenAddress = myAddressLocal;
+
             ipAdress.text = myAddressLocal;
+
+
+            NetworkManager.Singleton.StartHost();
         });
         //NetworkButtons[0].onClick.AddListener(() => { SceneManager.LoadScene(1); });
-        NetworkButtons[1].onClick.AddListener(() => 
+        NetworkButtons[1].onClick.AddListener(() =>
         {
-            NetworkManager.Singleton.StartClient();
+
+            //NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>();
+
+            /*
+            if(ipInput.text == "")
+            {
+                ipInput.text = "127.0.0.1";
+            }
+            */
+
+            NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Address = ipInput.text;
+            //int _port;
+            //int.TryParse(portInput.text,out _port);
             
-            NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Address = ipInput.ToString();
+            //NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().SetConnectionData(myAddressLocal, (ushort)_port);
+
+            //NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().SetConnectionData(ipInput.ToString(), NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Port);
+
+            //NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().SetConnectionData(NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.ServerEndPoint);
+
+            //NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.ServerListenAddress = myAddressLocal;
+
+            //ipAdress = null;
+
+            NetworkManager.Singleton.StartClient();
         });
         //NetworkButtons[1].onClick.AddListener(() => { SceneManager.LoadScene(1); });
+
+        //portInput.onValueChanged.AddListener();
     }
 }
