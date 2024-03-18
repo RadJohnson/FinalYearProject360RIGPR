@@ -17,10 +17,12 @@ public class VideoPlayingUIManager : MonoBehaviour
     [SerializeField] private VideoPlayer videoPlayer;
 
     //Draw Script
+    [Space(10), Header("Annotation Components")]
     [SerializeField] public Draw drawScript;
-    [SerializeField] public DrawSurface drawSurfaceScript;
+    [SerializeField] public DrawSurface[] drawSurfaceScripts;
 
     //Book marks tab
+    [Space(10), Header("Bookmark System Components")]
     [SerializeField] public GameObject BookmarksTab;
 
     public GameObject BookmarkIcon;
@@ -30,6 +32,7 @@ public class VideoPlayingUIManager : MonoBehaviour
     public TMP_InputField BookmarkNameInput;
 
     // Buttons
+    [Space(10)]
     [SerializeField] public Button exitBtn;
     [SerializeField] public Button pauseplayBtn;
     [SerializeField] public Button restartBtn;
@@ -38,6 +41,7 @@ public class VideoPlayingUIManager : MonoBehaviour
     [SerializeField] public Button openbookmarksBtn;
     [SerializeField] public Button addbookmarkBtn;
     //Color Buttons
+    [Space(10)]
     [SerializeField] public Button yellowBtn;
     [SerializeField] public Button blueBtn;
     [SerializeField] public Button redBtn;
@@ -81,7 +85,14 @@ public class VideoPlayingUIManager : MonoBehaviour
         yellowBtn.onClick.AddListener(changeColourYellow);
         greenBtn.onClick.AddListener(changeColourGreen);
         eraserBtn.onClick.AddListener(eraser);
-        clearAllBtn.onClick.AddListener(clearAll);
+        clearAllBtn.onClick.AddListener(() =>
+        {
+            foreach (var item in drawSurfaceScripts)
+            {
+                clearAll(item);
+
+            }
+        });
 
 
         isBookmarksOpen = false;
@@ -93,8 +104,8 @@ public class VideoPlayingUIManager : MonoBehaviour
         // Create a location for the bookmark file saving
         saveFilePath = Application.persistentDataPath + "/BookmarkSaves.json";
 
-        
-       // ~Currently breaks the program so is commented for pushing to branch~ LoadBookmarks();
+
+        // ~Currently breaks the program so is commented for pushing to branch~ LoadBookmarks();
     }
 
 
@@ -172,7 +183,7 @@ public class VideoPlayingUIManager : MonoBehaviour
 
         // BIcon.GetComponent<BookmarkIconScript>().BookmarkTime = CurrentVideoTime
 
-        
+
 
     }
 
@@ -187,10 +198,10 @@ public class VideoPlayingUIManager : MonoBehaviour
         foreach (var bookmark in bookmarks)
         {
             string bookmarkName = JsonUtility.ToJson(bookmark.GetComponent<BookmarkIconScript>(), true);
-     
+
 
             File.WriteAllText(saveFilePath, bookmarkName);
-            
+
 
         }
     }
@@ -201,21 +212,21 @@ public class VideoPlayingUIManager : MonoBehaviour
         // For the number of bookmarks
 
         //foreach (var bookmark in bookmarks)
-        
+
 
         string newBookmark = File.ReadAllText(saveFilePath);
         BookmarkIconScript.BookmarkData newBookmarkIconScriptData = JsonUtility.FromJson<BookmarkIconScript.BookmarkData>(newBookmark);
 
-        if(newBookmarkIconScriptData != null)
-        { 
-        GameObject BIcon;
-        BIcon = Instantiate(BookmarkIcon);
-        BIcon.transform.SetParent(BookmarksGrid.transform);
-        BIcon.GetComponent<BookmarkIconScript>().bookmarkData.BookmarkNameData = newBookmarkIconScriptData.BookmarkNameData;
-        BIcon.GetComponent<BookmarkIconScript>().bookmarkData.BookmarkTimeData = newBookmarkIconScriptData.BookmarkTimeData;
-        
+        if (newBookmarkIconScriptData != null)
+        {
+            GameObject BIcon;
+            BIcon = Instantiate(BookmarkIcon);
+            BIcon.transform.SetParent(BookmarksGrid.transform);
+            BIcon.GetComponent<BookmarkIconScript>().bookmarkData.BookmarkNameData = newBookmarkIconScriptData.BookmarkNameData;
+            BIcon.GetComponent<BookmarkIconScript>().bookmarkData.BookmarkTimeData = newBookmarkIconScriptData.BookmarkTimeData;
+
         }
-     
+
 
 
         //}
@@ -259,9 +270,9 @@ public class VideoPlayingUIManager : MonoBehaviour
 
     }
 
-    public void clearAll()
+    public void clearAll(DrawSurface _drawSurface)
     {
-        drawSurfaceScript.Start();
+        _drawSurface.Start();
     }
 
 

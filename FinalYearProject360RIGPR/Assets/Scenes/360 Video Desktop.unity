@@ -505,6 +505,7 @@ GameObject:
   - component: {fileID: 1116315545}
   - component: {fileID: 1116315544}
   - component: {fileID: 1116315543}
+  - component: {fileID: 1116315548}
   m_Layer: 0
   m_Name: DrawSurface (1)
   m_TagString: Untagged
@@ -615,6 +616,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1116315548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116315542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 7821164
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &1166184340
 GameObject:
   m_ObjectHideFlags: 0
@@ -1102,6 +1123,7 @@ GameObject:
   - component: {fileID: 1775878226}
   - component: {fileID: 1775878229}
   - component: {fileID: 1775878230}
+  - component: {fileID: 1775878231}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1208,7 +1230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c95acf0bbb4c14240be539d0ed3eccd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 1775878227}
+  rayOrigin: {fileID: 0}
   penSize: 10
   colors:
   - {r: 0, g: 0, b: 1, a: 1}
@@ -1312,6 +1334,26 @@ MonoBehaviour:
   - {r: 0, g: 0, b: 1, a: 1}
   - {r: 0, g: 0, b: 1, a: 1}
   drawSurface: {fileID: 626000640}
+--- !u!114 &1775878231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775878225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 873896868
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &1796278257
 GameObject:
   m_ObjectHideFlags: 0
@@ -1325,6 +1367,7 @@ GameObject:
   - component: {fileID: 1796278260}
   - component: {fileID: 1796278258}
   - component: {fileID: 1796278263}
+  - component: {fileID: 1796278264}
   m_Layer: 0
   m_Name: DrawSurface
   m_TagString: Untagged
@@ -1435,6 +1478,26 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1796278264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796278257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1534912061
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
