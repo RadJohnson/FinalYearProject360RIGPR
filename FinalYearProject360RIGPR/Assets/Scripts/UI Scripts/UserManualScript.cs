@@ -19,7 +19,7 @@ public class UserManualScript : MonoBehaviour
 
     public void BackToMainMenu()
     {
-        SceneManager.LoadScene("UI_MainMenu", LoadSceneMode.Single);
+        
     }
 
 }

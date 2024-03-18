@@ -276,14 +276,15 @@ public class VideoPlayingUIManager : MonoBehaviour
     }
 
 
-    IEnumerator StartTimer(float countTime = 1f)
+    IEnumerator StartTimer(float countTime = 2.5f)
     {
-
+       
         yield return new WaitForSeconds(countTime);
 
 
         videoSlider.maxValue = videoPlayer.frameCount;
         videoSlider.value = videoPlayer.frame;
+        
     }
 
 
