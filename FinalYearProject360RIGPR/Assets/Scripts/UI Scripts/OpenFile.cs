@@ -13,7 +13,7 @@ using UnityEngine.Video;
 public class OpenFile : MonoBehaviour
 {
     public RawImage rawImage;
-    private string VideoFolderpath = @"D:\TestVideoFolder"; // Video Folder Path 
+    private string VideoFolderpath = @"C:\TestVideoFolder"; // Video Folder Path 
     public string path;
     public GameObject VideoUIIcon;
     public GameObject VideoGrid;
