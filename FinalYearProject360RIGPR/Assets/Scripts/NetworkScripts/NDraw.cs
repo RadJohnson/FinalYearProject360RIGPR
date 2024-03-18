@@ -1,7 +1,8 @@
 using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 
-public class Draw : MonoBehaviour
+public class NDraw : NetworkBehaviour
 {
     [SerializeField] Camera rayOrigin;
 
@@ -9,9 +10,9 @@ public class Draw : MonoBehaviour
 
     [SerializeField] Color[] colors = new Color[1];
 
-    [SerializeField] private DrawSurface drawSurface;// make more efficient as lots of get component calls
+    [SerializeField] private NDrawSurface drawSurface;// make more efficient as lots of get component calls
     private bool _touchedLastFrame;
-    private DrawSurface lastUsedDrawSurface;
+    private NDrawSurface lastUsedDrawSurface;
 
     private void Start()
     {
@@ -29,14 +30,13 @@ public class Draw : MonoBehaviour
         Ray ray = rayOrigin.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;//this line could be more efficient but only by not remaking the var every update overall impact is negligable
         Debug.DrawRay(ray.origin, ray.direction, Color.red);
-        //if (Input.GetMouseButton(1) && IsHost)
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) && IsHost)
             if (Physics.Raycast(ray, out hit))
             {
 
                 Debug.Log(hit.distance + hit.transform.name);
 
-                drawSurface = hit.collider.gameObject.GetComponent<DrawSurface>();
+                drawSurface = hit.collider.gameObject.GetComponent<NDrawSurface>();
 
                 Vector2 pixelUV = hit.textureCoord;
 
@@ -87,6 +87,5 @@ public class Draw : MonoBehaviour
         penSize = 3;//change this later
         rayOrigin = GetComponent<Camera>();
         colors = Enumerable.Repeat(new Color(0, 0, 1, 1), penSize * penSize).ToArray();
-        //drawSurface = GameObject.Find("DrawSurface").GetComponent<DrawSurface>();
     }
 }
