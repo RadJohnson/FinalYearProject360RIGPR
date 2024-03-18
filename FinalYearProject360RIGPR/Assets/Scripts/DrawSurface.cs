@@ -16,13 +16,13 @@ public class DrawSurface : MonoBehaviour
     internal void Start()
     {
         Reset();
+        gameObject.GetComponent<Renderer>().material.mainTexture = texture;
     }
 
     private void Reset()
     {
         var r = gameObject.GetComponent<Renderer>();
         texture = new Texture2D(textureSize.x, textureSize.y);
-        r.material.mainTexture = texture;//may want to change this to shared material
 
         initialColour = Enumerable.Repeat(initialColour[0], textureSize.x * textureSize.y).ToArray();
         texture.SetPixels(initialColour);

@@ -33,13 +33,13 @@ public class NDrawSurface : NetworkBehaviour
     internal void Start()
     {
         Reset();
+        gameObject.GetComponent<Renderer>().material.mainTexture = texture;
     }
 
     private void Reset()
     {
         var r = gameObject.GetComponent<Renderer>();
         texture = new Texture2D(textureSize.x, textureSize.y);
-        r.material.mainTexture = texture;//may want to change this to shared material
 
         initialColour = Enumerable.Repeat(new Color(1, 1, 1, 1), textureSize.x * textureSize.y).ToArray();
         texture.SetPixels(initialColour);
