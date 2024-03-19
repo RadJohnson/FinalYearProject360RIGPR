@@ -16,6 +16,9 @@ public class NetworkManagerUI : MonoBehaviour
 
     [SerializeField] private string myAddressLocal;
 
+    //NetworkManager.Singleton.SceneManager.LoadScene();
+
+
     private void Start()
     {
         Reset();
@@ -63,7 +66,6 @@ public class NetworkManagerUI : MonoBehaviour
                 ipInput.text = "127.0.0.1";
             }
             */
-
             NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().ConnectionData.Address = ipInput.text;
             //int _port;
             //int.TryParse(portInput.text,out _port);

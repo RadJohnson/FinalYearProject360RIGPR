@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
@@ -13,7 +12,7 @@ using UnityEngine.Video;
 public class OpenFile : MonoBehaviour
 {
     public RawImage rawImage;
-    private string VideoFolderpath = @"D:\TestVideoFolder"; // Video Folder Path 
+    private string VideoFolderpath = Application.streamingAssetsPath; /* @"D:\TestVideoFolder"; // Video Folder Path */
     public string path;
     public GameObject VideoUIIcon;
     public GameObject VideoGrid;
@@ -23,19 +22,17 @@ public class OpenFile : MonoBehaviour
     private Button button;
     [SerializeField] internal VideoPlayer videoPlayer;
 
-
     private void Awake()
     {
         videoPlayer = GameObject.Find("Video Player").GetComponent<VideoPlayer>();
     }
+
     void Start()
     {
-
         DirectoryInfo dir = new DirectoryInfo(VideoFolderpath);     // Create info for the given video folder path
         FileInfo[] info = dir.GetFiles("*.*");                // store files in folder as an array called fileinfo
         foreach (FileInfo f in info)
         {
-
             // Add into ui grid
             GameObject VIcon;
             VIcon = Instantiate(VideoUIIcon);
@@ -45,21 +42,13 @@ public class OpenFile : MonoBehaviour
             VIcon.GetComponent<VideoIconScript>().videoNameTxt.text = f.Name.ToString();
             Debug.Log(VIcon.GetComponent<VideoIconScript>().VideoFileURL);
 
-    
-
-
             //Get Video Thumbnail
             // VIcon.GetComponent<Image>().sprite = f.OpenRead().;
-
         }
-
-
     }
-
 
     public void OpenFileBrowser()
     {
-
         var bp = new BrowserProperties();
         //string path;
         bp.filter = "Video files | *.mp4; *.AVI";   // FILTER TO ONLY SEE VIDEOS IN EXPLORER
@@ -75,21 +64,5 @@ public class OpenFile : MonoBehaviour
             videoPlayer.Play();
 
         });
-
-
     }
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
