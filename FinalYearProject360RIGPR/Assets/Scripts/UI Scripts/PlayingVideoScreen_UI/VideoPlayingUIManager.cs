@@ -1,13 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Video;
-using UnityEditor;
-using Unity.VisualScripting;
 
 
 public class VideoPlayingUIManager : MonoBehaviour
@@ -30,18 +27,21 @@ public class VideoPlayingUIManager : MonoBehaviour
 
     // Input Field
     public TMP_InputField BookmarkNameInput;
+    [SerializeField] public Button openbookmarksBtn;
+    [SerializeField] public Button addbookmarkBtn;
 
     // Buttons
-    [Space(10)]
+    [Space(10),Header("VideoPlayer UI")]
     [SerializeField] public Button exitBtn;
     [SerializeField] public Button pauseplayBtn;
     [SerializeField] public Button restartBtn;
     [SerializeField] public Button skipfwdBtn;
     [SerializeField] public Button skipbwdBtn;
-    [SerializeField] public Button openbookmarksBtn;
-    [SerializeField] public Button addbookmarkBtn;
+    //Slider
+    [SerializeField] public Slider videoSlider;
+    
     //Color Buttons
-    [Space(10)]
+    [Space(10),Header("AnnotationButtons")]
     [SerializeField] public Button yellowBtn;
     [SerializeField] public Button blueBtn;
     [SerializeField] public Button redBtn;
@@ -49,9 +49,8 @@ public class VideoPlayingUIManager : MonoBehaviour
     // Erasing Annotations
     [SerializeField] public Button eraserBtn;
     [SerializeField] public Button clearAllBtn;
-    //Slider
-    [SerializeField] public Slider videoSlider;
 
+    [Space(10),Header("????")]
     //Save FIle
     public string saveFilePath;
 
@@ -90,7 +89,6 @@ public class VideoPlayingUIManager : MonoBehaviour
             foreach (var item in drawSurfaceScripts)
             {
                 clearAll(item);
-
             }
         });
 
@@ -188,7 +186,7 @@ public class VideoPlayingUIManager : MonoBehaviour
     }
 
 
-    public void SaveBookmarks()
+    private void SaveBookmarks()
     {
 
         var bookmarks = GameObject.FindGameObjectsWithTag("bookmark");
@@ -208,11 +206,9 @@ public class VideoPlayingUIManager : MonoBehaviour
 
     public void LoadBookmarks()
     {
-
         // For the number of bookmarks
 
         //foreach (var bookmark in bookmarks)
-
 
         string newBookmark = File.ReadAllText(saveFilePath);
         BookmarkIconScript.BookmarkData newBookmarkIconScriptData = JsonUtility.FromJson<BookmarkIconScript.BookmarkData>(newBookmark);
@@ -226,51 +222,48 @@ public class VideoPlayingUIManager : MonoBehaviour
             BIcon.GetComponent<BookmarkIconScript>().bookmarkData.BookmarkTimeData = newBookmarkIconScriptData.BookmarkTimeData;
 
         }
-
-
-
         //}
     }
 
-    public void skipFwd()
+    private void skipFwd()
     {
         videoPlayer.frame += 60 * 5;
 
     }
 
-    public void skipBwd()
+    private void skipBwd()
     {
         videoPlayer.frame -= 60 * 5;
     }
 
 
-    public void changeColourRed()
+    private void changeColourRed()
     {
         drawScript.ChangeBrushColour(Color.red);
     }
 
-    public void changeColourYellow()
+    private void changeColourYellow()
     {
         drawScript.ChangeBrushColour(Color.yellow);
     }
 
-    public void changeColourBlue()
+    private void changeColourBlue()
     {
         drawScript.ChangeBrushColour(Color.blue);
     }
 
-    public void changeColourGreen()
+    private void changeColourGreen()
     {
         drawScript.ChangeBrushColour(Color.green);
     }
 
-    public void eraser()
+    private void eraser()
     {
         drawScript.ChangeToEraser();
 
     }
 
-    public void clearAll(DrawSurface _drawSurface)
+    private void clearAll(DrawSurface _drawSurface)
     {
         _drawSurface.Start();
     }
@@ -286,6 +279,4 @@ public class VideoPlayingUIManager : MonoBehaviour
         videoSlider.value = videoPlayer.frame;
         
     }
-
-
 }
