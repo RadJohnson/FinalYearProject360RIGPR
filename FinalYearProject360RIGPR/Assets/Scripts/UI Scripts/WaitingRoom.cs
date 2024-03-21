@@ -30,7 +30,7 @@ public class WaitingRoom : MonoBehaviour
 
     public void BackToMenu()
     {
-        SceneManager.LoadScene("UI_MainMenu", LoadSceneMode.Single);
+        SceneManager.LoadScene("MainMenuNetworking", LoadSceneMode.Single);
     }
 
 }

@@ -14,28 +14,15 @@ public class VideoIconScript : MonoBehaviour
     public string VideoFileName;
     private Button button;
     public TMP_Text videoNameTxt;
-    [SerializeField] internal VideoPlayer videoPlayer;
-
-    private void Awake()
-    {
-        videoPlayer = GameObject.Find("Video Player").GetComponent<VideoPlayer>();
-    }
 
 
     public void ChooseVideo()
     {
         Debug.Log("PRESSED BUTTON");
         ChosenVideoScript.VideoFilePath = "file://" + VideoFileURL + "//" + VideoFileName;
-        Debug.Log(videoPlayer.url);
-
-
+   
         // Open waiting room scene
-        SceneManager.LoadScene("UI_WaitingRoom", LoadSceneMode.Single);
-
-        //videoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;
-        //videoPlayer.EnableAudioTrack(0, true);
-       // videoPlayer.Prepare();
-       // videoPlayer.Play();
+        SceneManager.LoadScene("WaitingRoomNetworking", LoadSceneMode.Single);
     }
     private void Reset()
     {

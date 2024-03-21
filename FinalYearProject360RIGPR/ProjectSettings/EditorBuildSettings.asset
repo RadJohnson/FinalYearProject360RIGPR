@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/TEST NETWORKING SCENE.unity
+    path: Assets/Scenes/Networking/TEST NETWORKING SCENE.unity
     guid: 68933a728db5e3148aa952b8507ab86c
   - enabled: 1
     path: Assets/Scenes/UI_Scenes/UI_MainMenu.unity
@@ -36,7 +36,7 @@ EditorBuildSettings:
     path: Assets/Scenes/UI_Scenes/UI_WaitingRoom.unity
     guid: 0acc640abf2659f4fa32194107fa802a
   - enabled: 0
-    path: Assets/Scenes/UI_Scenes/VideoPlayingScene.unity
+    path: Assets/Scenes/UI_Scenes/OldScene/VideoPlayingScene.unity
     guid: aee2ba10fd0dcea4d8c3cd1c4561fbf6
   - enabled: 1
     path: Assets/Scenes/UI_Scenes/UserManualScenes/UI_UserManual.unity
