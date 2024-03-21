@@ -134,7 +134,7 @@ public class VideoPlayingUIManager : MonoBehaviour
 
         SaveBookmarks();
 
-        SceneManager.LoadScene("UI_WaitingRoom");
+        SceneManager.LoadScene("WaitingRoomNetworking");
         Debug.Log("Tried to exit");
     }
 

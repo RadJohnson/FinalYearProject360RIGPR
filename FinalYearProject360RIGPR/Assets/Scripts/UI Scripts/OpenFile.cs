@@ -36,10 +36,13 @@ public class OpenFile : MonoBehaviour
             VIcon.GetComponent<VideoIconScript>().VideoFileURL = f.Directory.ToString();
             VIcon.GetComponent<VideoIconScript>().VideoFileName = f.Name;
             VIcon.GetComponent<VideoIconScript>().videoNameTxt.text = f.Name.ToString();
-       
+ 
+
 
             //Get Video Thumbnail
-            // VIcon.GetComponent<Image>().sprite = f.OpenRead().;
+            // VIcon.GetComponent<Image>().sprite = ;
+
+  
         }
     }
 
