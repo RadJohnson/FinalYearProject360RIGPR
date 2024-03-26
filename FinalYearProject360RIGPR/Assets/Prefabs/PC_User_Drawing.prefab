@@ -224,6 +224,8 @@ MonoBehaviour:
   - {r: 0, g: 0, b: 1, a: 1}
   - {r: 0, g: 0, b: 1, a: 1}
   drawSurface: {fileID: 0}
+  MainMenuScenePrefab: {fileID: 6861302558696201699, guid: 5bdc27da67f1bda449f85f306721f188, type: 3}
+  VideoUIPrefab: {fileID: 7424285084437516093, guid: d5bbce728334fa54187e8eb18f07bc3c, type: 3}
 --- !u!114 &4202677998798426109
 MonoBehaviour:
   m_ObjectHideFlags: 0

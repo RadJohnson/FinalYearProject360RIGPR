@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
+using Unity.Netcode;
 
 public class VideoIconScript : MonoBehaviour
 {
@@ -20,9 +21,13 @@ public class VideoIconScript : MonoBehaviour
     {
         Debug.Log("PRESSED BUTTON");
         ChosenVideoScript.VideoFilePath = "file://" + VideoFileURL + "//" + VideoFileName;
-   
+
         // Open waiting room scene
-        SceneManager.LoadScene("WaitingRoomNetworking", LoadSceneMode.Single);
+        //SceneManager.LoadScene("WaitingRoomNetworking", LoadSceneMode.Single);
+
+        //NetworkManager.Singleton.NetworkConfig.EnableSceneManagement = true;
+        //SceneManager.LoadScene("WaitingRoomNetworking", LoadSceneMode.Single);
+        NetworkManager.Singleton.SceneManager.LoadScene("360VideoUINetworking", LoadSceneMode.Single);
     }
     private void Reset()
     {

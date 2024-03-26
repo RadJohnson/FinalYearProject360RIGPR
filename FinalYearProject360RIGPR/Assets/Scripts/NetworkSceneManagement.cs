@@ -10,22 +10,22 @@ public class NetworkSceneManagement : MonoBehaviour
 
     private void Start()
     {
-        NetworkManager.Singleton.OnClientStarted += () =>
-        {
-            if (NetworkManager.Singleton.IsHost)
-            {
-                StartCoroutine(
-                SceneSwitch(1, 0, NetworkManager.Singleton.LocalClient.PlayerObject.gameObject)
-                    );
-            }
-
-            //else if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsHost)
-            //{
-            //    StartCoroutine(
-            //        SceneSwitch(2, 0, NetworkManager.Singleton.LocalClient.PlayerObject.gameObject)
-            //        );
-            //}
-        };
+        //NetworkManager.Singleton.OnClientStarted += () =>
+        //{
+        //    if (NetworkManager.Singleton.IsHost)
+        //    {
+        //        StartCoroutine(
+        //        SceneSwitch(1, 0, NetworkManager.Singleton.LocalClient.PlayerObject.gameObject)
+        //            );
+        //    }
+        //
+        //    //else if (NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsHost)
+        //    //{
+        //    //    StartCoroutine(
+        //    //        SceneSwitch(2, 0, NetworkManager.Singleton.LocalClient.PlayerObject.gameObject)
+        //    //        );
+        //    //}
+        //};
     }
 
     public IEnumerator SceneSwitch(int loadSceneBuildIndex, int unloadSceneBuildIndex, GameObject _clientToMove)

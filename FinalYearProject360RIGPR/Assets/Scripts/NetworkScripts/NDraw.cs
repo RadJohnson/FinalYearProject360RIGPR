@@ -1,6 +1,7 @@
 using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NDraw : NetworkBehaviour
 {
@@ -14,6 +15,12 @@ public class NDraw : NetworkBehaviour
     private bool _touchedLastFrame;
     private NDrawSurface lastUsedDrawSurface;
 
+    [Space(5),Header("HostPrefabUI")]
+    [SerializeField] private GameObject MainMenuScenePrefab;
+    [SerializeField] private GameObject VideoUIPrefab;
+    
+    private bool prefabSpawned = false;
+    
     private void Start()
     {
         Reset();
@@ -22,7 +29,47 @@ public class NDraw : NetworkBehaviour
     private void Update()
     {
         DrawPixels();
+
+        if (IsHost)
+        {
+            if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(1) && prefabSpawned == false)
+            {
+                Instantiate(MainMenuScenePrefab);
+        
+                prefabSpawned = true;
+            }
+            if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2) && prefabSpawned == false)
+            {
+                Instantiate(VideoUIPrefab);
+        
+                VideoUIPrefab.GetComponent<VideoPlayingUIManager>().drawScript = this;
+        
+                prefabSpawned = true;
+            }
+        }
     }
+
+    public void OnSceneChanged()
+    {
+        // Check if the player is the host
+        if (IsHost)
+        {
+            // Check if the next scene is the first scene and the prefab hasn't been spawned yet
+            if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(1) && !prefabSpawned)
+            {
+                Instantiate(MainMenuScenePrefab);
+                prefabSpawned = true;
+            }
+            // Check if the next scene is the second scene and the prefab hasn't been spawned yet
+            else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2) && !prefabSpawned)
+            {
+                Instantiate(VideoUIPrefab);
+                VideoUIPrefab.GetComponent<VideoPlayingUIManager>().drawScript = this;
+                prefabSpawned = true;
+            }
+        }
+    }
+
 
     private void DrawPixels()
     {

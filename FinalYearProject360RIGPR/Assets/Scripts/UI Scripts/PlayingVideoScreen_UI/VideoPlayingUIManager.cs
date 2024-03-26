@@ -15,8 +15,8 @@ public class VideoPlayingUIManager : MonoBehaviour
 
     //Draw Script
     [Space(10), Header("Annotation Components")]
-    [SerializeField] public Draw drawScript;
-    [SerializeField] public DrawSurface[] drawSurfaceScripts;
+    [SerializeField] public NDraw drawScript;
+    [SerializeField] public NDrawSurface[] drawSurfaceScripts;
 
     //Book marks tab
     [Space(10), Header("Bookmark System Components")]
@@ -70,6 +70,8 @@ public class VideoPlayingUIManager : MonoBehaviour
         isBookmarksOpen = false;
         BookmarksTab.SetActive(false);
 
+        drawSurfaceScripts = FindObjectsOfType<NDrawSurface>();//needed to do this to facilitate a solution to make everything work as needed easily
+
         // Bind Buttons
         restartBtn.onClick.AddListener(Restart_Video);
         exitBtn.onClick.AddListener(Exit_Video); // Exit button
@@ -78,6 +80,7 @@ public class VideoPlayingUIManager : MonoBehaviour
         addbookmarkBtn.onClick.AddListener(AddBookmark);
         skipfwdBtn.onClick.AddListener(skipFwd);
         skipbwdBtn.onClick.AddListener(skipBwd);
+
         //Colour Button Binding
         blueBtn.onClick.AddListener(changeColourBlue);
         redBtn.onClick.AddListener(changeColourRed);
@@ -263,7 +266,7 @@ public class VideoPlayingUIManager : MonoBehaviour
 
     }
 
-    private void clearAll(DrawSurface _drawSurface)
+    private void clearAll(NDrawSurface _drawSurface)
     {
         _drawSurface.Start();
     }

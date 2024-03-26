@@ -44,7 +44,7 @@ public class NetworkManagerUI : MonoBehaviour
 
 
             NetworkManager.Singleton.StartHost();
-            //NetworkManager.Singleton.SceneManager.LoadScene("MainMenuNetworking", LoadSceneMode.Single);
+            NetworkManager.Singleton.SceneManager.LoadScene("MainMenuNetworking", LoadSceneMode.Single);
             //SceneManager.LoadScene("MainMenuNetworking", LoadSceneMode.Additive);
             //SceneManager.LoadSceneAsync("DesktopWaitingRoomNetworking", LoadSceneMode.Additive);
 
@@ -67,7 +67,7 @@ public class NetworkManagerUI : MonoBehaviour
 
             NetworkManager.Singleton.StartClient();
 
-            SceneManager.LoadScene(2, LoadSceneMode.Single);
+            //SceneManager.LoadScene(2, LoadSceneMode.Single);
 
             //StartCoroutine(networkSceneManagement.SceneSwitch(2, 0, NetworkManager.Singleton.LocalClient.PlayerObject.gameObject));
 
@@ -84,6 +84,6 @@ public class NetworkManagerUI : MonoBehaviour
         });
     }
 
-    NetworkSceneManagement networkSceneManagement = new NetworkSceneManagement();
+    //NetworkSceneManagement networkSceneManagement = new NetworkSceneManagement();
 }
 
