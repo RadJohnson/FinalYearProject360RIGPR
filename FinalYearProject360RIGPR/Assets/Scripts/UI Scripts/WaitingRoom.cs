@@ -28,5 +28,9 @@ public class WaitingRoom : MonoBehaviour
         SceneManager.LoadScene("360VideoSphereUICopy", LoadSceneMode.Single);
     }
 
-  
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("MainMenuNetworking", LoadSceneMode.Single);
+    }
+
 }

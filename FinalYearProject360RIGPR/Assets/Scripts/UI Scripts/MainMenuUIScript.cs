@@ -32,44 +32,26 @@ public class MainMenuUIScript : MonoBehaviour
     // Open User Manual
     public void OpenUserManual()
     {
-        SceneManager.LoadScene(5);
-    }
-    // Open UM P2
-    public void OpenUserManualPageTwo()
-    {
-        SceneManager.LoadScene(6);
-    }
-
-    // Open UM P3
-    public void OpenUserManualPageThree()
-    {
-        SceneManager.LoadScene(7);
+        SceneManager.LoadScene("UI_UserManual", LoadSceneMode.Single);
     }
 
 
     public void OpenMainMenu()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene("MainMenuNetworking", LoadSceneMode.Single);
     }
 
-            // Loading Video Files
+    public void OpenUserManualPage2()
+    {
+        SceneManager.LoadScene("UI_UserManualPageTwo", LoadSceneMode.Single);
+    }
+
+    public void OpenUserManualPage3()
+    {
+        SceneManager.LoadScene("UI_UserManualPageThree", LoadSceneMode.Single);
+    }
     
 
-
-            // Choosing Video File
-
-    //Choose Video from list
-    public void ChooseVideo()
-    {
-        //Videoplayer URL = Video File URL
-
-    }
-
-    // Open Other Video File
-    public void OpenOtherVideoFile()
-    {
-
-    }
 
 
 

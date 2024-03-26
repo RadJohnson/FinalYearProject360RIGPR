@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using UnityEngine.SceneManagement;
 
 
 public class OpenFile : MonoBehaviour
@@ -20,12 +21,7 @@ public class OpenFile : MonoBehaviour
     public string VideoFileURL; // Video File URL
     public string VideoFileName;
     private Button button;
-    [SerializeField] internal VideoPlayer videoPlayer;
 
-    private void Awake()
-    {
-        videoPlayer = GameObject.Find("Video Player").GetComponent<VideoPlayer>();
-    }
 
     void Start()
     {
@@ -40,10 +36,13 @@ public class OpenFile : MonoBehaviour
             VIcon.GetComponent<VideoIconScript>().VideoFileURL = f.Directory.ToString();
             VIcon.GetComponent<VideoIconScript>().VideoFileName = f.Name;
             VIcon.GetComponent<VideoIconScript>().videoNameTxt.text = f.Name.ToString();
-            Debug.Log(VIcon.GetComponent<VideoIconScript>().VideoFileURL);
+ 
+
 
             //Get Video Thumbnail
-            // VIcon.GetComponent<Image>().sprite = f.OpenRead().;
+            // VIcon.GetComponent<Image>().sprite = ;
+
+  
         }
     }
 
@@ -56,13 +55,8 @@ public class OpenFile : MonoBehaviour
         new FileBrowser().OpenFileBrowser(bp, path =>
         {
             Debug.Log(path);
-            videoPlayer.url = "file://" + path;
-            Debug.Log(videoPlayer.url);
-            videoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;
-            videoPlayer.EnableAudioTrack(0, true);
-            videoPlayer.Prepare();
-            videoPlayer.Play();
-
+            ChosenVideoScript.VideoFilePath = "file://" + path;
+            SceneManager.LoadScene("WaitingRoomNetworking");
         });
     }
 }

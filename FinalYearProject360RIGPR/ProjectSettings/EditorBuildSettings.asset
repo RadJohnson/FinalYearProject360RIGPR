@@ -5,6 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/Networking/TEST NETWORKING SCENE.unity
+    guid: 68933a728db5e3148aa952b8507ab86c
+  - enabled: 1
+    path: Assets/Scenes/UI_Scenes/UI_MainMenu.unity
+    guid: ae476569d70616e438e49bd67c8d3987
+  - enabled: 1
+    path: Assets/Scenes/UI_Scenes/UI_WaitingRoom.unity
+    guid: 0acc640abf2659f4fa32194107fa802a
   - enabled: 1
     path: Assets/Scenes/Networking/Host Client Screen.unity
     guid: 3f5e7834afac4f94698554bdad5e9e0d
@@ -27,7 +36,7 @@ EditorBuildSettings:
     path: Assets/Scenes/UI_Scenes/UI_WaitingRoom.unity
     guid: 0acc640abf2659f4fa32194107fa802a
   - enabled: 0
-    path: Assets/Scenes/UI_Scenes/VideoPlayingScene.unity
+    path: Assets/Scenes/UI_Scenes/OldScene/VideoPlayingScene.unity
     guid: aee2ba10fd0dcea4d8c3cd1c4561fbf6
   - enabled: 1
     path: Assets/Scenes/UI_Scenes/UserManualScenes/UI_UserManual.unity
@@ -35,9 +44,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UI_Scenes/UserManualScenes/UI_UserManualPageTwo.unity
     guid: ddbb6f2f8c12c044f9ca8ed2f7d80f20
-  - enabled: 1
-    path: Assets/Scenes/UI_Scenes/UserManualScenes/UI_UserManualPageThree.unity
-    guid: 84838cf2dc9b30442a675deda69053d3
   m_configObjects:
     Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: 9ce3466fca1d98248bc7ee358dfda863, type: 2}
     Unity.XR.PXR.Settings: {fileID: 11400000, guid: c73c278c87042c444979c4b078afd01d, type: 2}
