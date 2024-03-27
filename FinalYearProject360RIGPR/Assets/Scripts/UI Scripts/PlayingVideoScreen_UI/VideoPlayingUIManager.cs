@@ -201,8 +201,8 @@ public class VideoPlayingUIManager : MonoBehaviour
 
     private void SaveBookmarks()
     {
-
         GameObject[] bookmarks = GameObject.FindGameObjectsWithTag("bookmark");
+
         List<BookmarkIconScript> bookmarkdata = new();
         foreach (var bookmark in bookmarks)
         {
@@ -217,6 +217,10 @@ public class VideoPlayingUIManager : MonoBehaviour
 
             string filePath = Path.Combine(saveFilePath, $"BookMark{i}.json");
             File.WriteAllText(filePath, bookmarkName);
+        }
+        if(bookmarks.Length == 0 && Directory.Exists(saveFilePath)) 
+        {
+            Directory.Delete(saveFilePath, true);
         }
     }
 

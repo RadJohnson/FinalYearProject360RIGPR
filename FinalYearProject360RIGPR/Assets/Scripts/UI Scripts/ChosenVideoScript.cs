@@ -6,6 +6,6 @@ public class ChosenVideoScript
 {
 
     public static string VideoFilePath;
-
+    public static string VideoFileName;
 
 }

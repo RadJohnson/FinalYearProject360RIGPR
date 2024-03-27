@@ -24,7 +24,8 @@ public class VideoPlayback : NetworkBehaviour
                 timeSinceLastUpdate += Time.deltaTime;
                 if (timeSinceLastUpdate >= updateRate)
                 {
-                    SyncPlayheadClientRpc(videoPlayer.url, videoPlayer.time, videoPlayer.isPlaying);
+                    string relativePath = GetRelativePathForStreamingAssets(videoPlayer.url);
+                    SyncPlayheadClientRpc(relativePath, videoPlayer.time, videoPlayer.isPlaying);
                     timeSinceLastUpdate = 0.0f;
                 }
             }
@@ -52,8 +53,13 @@ public class VideoPlayback : NetworkBehaviour
     {
         if (!IsHost && videoPlayer)
         {
-            if (videoPlayer.url == null || videoPlayer.url == "")
-                videoPlayer.url = videoUrl;
+            string videoFullPath = Application.streamingAssetsPath + videoUrl;
+
+            // Only update if the URL is different to minimize loading times
+            if (!string.IsNullOrEmpty(videoFullPath) && videoPlayer.url != videoFullPath)
+            {
+                videoPlayer.url = videoFullPath;
+            }
 
             if (videoPlayer.time != time)
                 videoPlayer.time = time;
@@ -64,6 +70,19 @@ public class VideoPlayback : NetworkBehaviour
                 videoPlayer.Pause();
 
         }
+    }
+
+    private string GetRelativePathForStreamingAssets(string fullPath)
+    {
+        // Extract the relative path from the full URL
+        string keyword = "StreamingAssets";
+        int index = fullPath.IndexOf(keyword, System.StringComparison.Ordinal);
+        if (index >= 0)
+        {
+            // +1 to account for the trailing slash or backslash
+            return fullPath.Substring(index + keyword.Length + 1);
+        }
+        return null;
     }
 
     void Reset()

@@ -21,6 +21,7 @@ public class VideoIconScript : MonoBehaviour
     {
         Debug.Log("PRESSED BUTTON");
         ChosenVideoScript.VideoFilePath = "file://" + VideoFileURL + "//" + VideoFileName;
+        ChosenVideoScript.VideoFileName = VideoFileName;
 
         // Open waiting room scene
         //SceneManager.LoadScene("WaitingRoomNetworking", LoadSceneMode.Single);

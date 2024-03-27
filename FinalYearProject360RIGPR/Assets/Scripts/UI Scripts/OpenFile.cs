@@ -52,6 +52,7 @@ public class OpenFile : MonoBehaviour
         {
             Debug.Log(path);
             ChosenVideoScript.VideoFilePath = "file://" + path;
+            ChosenVideoScript.VideoFileName = path;
             SceneManager.LoadScene("WaitingRoomNetworking");
         });
     }
