@@ -27,6 +27,8 @@ public class VideoPlayingUIManager : MonoBehaviour
     public GameObject BookmarkIcon;
     public GameObject BookmarksGrid;
 
+    public bool hasPlayedForFirstTime = false;
+
     // Input Field
     public TMP_InputField BookmarkNameInput;
     [SerializeField] public Button openbookmarksBtn;
@@ -102,9 +104,7 @@ public class VideoPlayingUIManager : MonoBehaviour
 
         isBookmarksOpen = false;
 
-        // Coroutine timer (sets slider params)
-        StartCoroutine(StartTimer());
-        StopCoroutine(StartTimer());
+
 
         string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(videoPlayer.url);
 
@@ -143,7 +143,17 @@ public class VideoPlayingUIManager : MonoBehaviour
         else
         {
             // Play Video
+
             videoPlayer.Play();
+
+            if(!hasPlayedForFirstTime)
+            {
+                videoSlider.maxValue = videoPlayer.frameCount;
+                videoSlider.value = videoPlayer.frame;
+
+                hasPlayedForFirstTime = true;
+            }
+
         }
 
     }
@@ -307,7 +317,7 @@ public class VideoPlayingUIManager : MonoBehaviour
     }
 
 
-    IEnumerator StartTimer(float countTime = 2.5f)
+    IEnumerator StartTimer(float countTime = 3f)
     {
 
         yield return new WaitForSeconds(countTime);
