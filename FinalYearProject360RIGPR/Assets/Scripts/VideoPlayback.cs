@@ -6,7 +6,7 @@ public class VideoPlayback : NetworkBehaviour
 {
     [SerializeField] private VideoPlayer videoPlayer;
 
-    private float updateRate = 2.0f;
+    private float updateRate = 1.0f;
     private float timeSinceLastUpdate = 0.0f;
 
     private void Start()
@@ -25,9 +25,10 @@ public class VideoPlayback : NetworkBehaviour
                 if (timeSinceLastUpdate >= updateRate)
                 {
                     string relativePath = GetRelativePathForStreamingAssets(videoPlayer.url);
-                    SyncPlayheadClientRpc(relativePath, videoPlayer.time, videoPlayer.isPlaying);
+                    SyncPlayheadClientRpc(relativePath, videoPlayer.time);
                     timeSinceLastUpdate = 0.0f;
                 }
+                SyncPlayStateClientRpc(videoPlayer.isPlaying);
             }
         }
         //if (Input.GetKeyDown(KeyCode.L))
@@ -49,9 +50,9 @@ public class VideoPlayback : NetworkBehaviour
 
 
     [ClientRpc]
-    private void SyncPlayheadClientRpc(string videoUrl, double time, bool action)
+    private void SyncPlayheadClientRpc(string videoUrl, double time)
     {
-        if (!IsHost && videoPlayer)
+        if (!IsHost)
         {
             string videoFullPath = Application.streamingAssetsPath + videoUrl;
 
@@ -61,17 +62,23 @@ public class VideoPlayback : NetworkBehaviour
                 videoPlayer.url = videoFullPath;
             }
 
-            if (videoPlayer.time != time)
+            if (Mathf.Abs((float)(videoPlayer.time - time)) > 0.1) // Adding a tolerance to avoid unnecessary seeking
                 videoPlayer.time = time;
-
-            if (action)
-                videoPlayer.Play();
-            else
-                videoPlayer.Pause();
 
         }
     }
 
+    [ClientRpc]
+    private void SyncPlayStateClientRpc(bool action)
+    {
+        if (!IsHost)
+        {
+            if (action)
+                videoPlayer.Play();
+            else
+                videoPlayer.Pause();
+        }
+    }
     private string GetRelativePathForStreamingAssets(string fullPath)
     {
         // Extract the relative path from the full URL
