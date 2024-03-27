@@ -1,5 +1,10 @@
 using System.Linq;
+using System.Net.Sockets;
+using System.Net;
+using TMPro;
 using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,6 +25,7 @@ public class NDraw : NetworkBehaviour
     [SerializeField] private GameObject VideoUIPrefab;
 
     private bool prefabSpawned = false;
+    private string myAddressLocal;
 
     private void Start()
     {
@@ -43,11 +49,23 @@ public class NDraw : NetworkBehaviour
             if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2))
             {
                 var existingObject = GameObject.FindWithTag("HostUI");
-
                 if (existingObject == null)
                 {
                     GameObject UIInstance = Instantiate(VideoUIPrefab);
                     UIInstance.GetComponent<VideoPlayingUIManager>().drawScript = this;
+
+                    GameObject IpContainer = GameObject.FindWithTag("IP");
+
+                    IPHostEntry hostEntry = Dns.GetHostEntry(Dns.GetHostName());
+                    foreach (IPAddress ip in hostEntry.AddressList)
+                    {
+                        if (ip.AddressFamily == AddressFamily.InterNetwork)
+                        {
+                            myAddressLocal = ip.ToString();
+                            break;
+                        }
+                    }
+                    IpContainer.GetComponent<TMP_Text>().text = myAddressLocal;
                 }
             }
         }
