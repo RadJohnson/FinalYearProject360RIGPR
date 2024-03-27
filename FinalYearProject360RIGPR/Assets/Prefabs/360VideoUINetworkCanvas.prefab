@@ -1122,7 +1122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3567,7 +3567,6 @@ MonoBehaviour:
   BookmarksTab: {fileID: 4262975940332864957}
   BookmarkIcon: {fileID: 6193127685654276866, guid: b67c6eecf6bdf7a44a43266629535115, type: 3}
   BookmarksGrid: {fileID: 3489109127450373521}
-  hasPlayedForFirstTime: 0
   BookmarkNameInput: {fileID: 1674580925523829447}
   openbookmarksBtn: {fileID: 9096112125371346608}
   addbookmarkBtn: {fileID: 2692571955100928074}
@@ -3576,7 +3575,7 @@ MonoBehaviour:
   restartBtn: {fileID: 8704419573225533884}
   skipfwdBtn: {fileID: 7362455118458672617}
   skipbwdBtn: {fileID: 1063827390526887835}
-  timeLineSlider: {fileID: 869744114281587489}
+  videoSlider: {fileID: 869744114281587489}
   yellowBtn: {fileID: 7593663884872081112}
   blueBtn: {fileID: 6002203541192283553}
   redBtn: {fileID: 1583390284235002081}
