@@ -7,6 +7,10 @@ using UnityEngine.Video;
 
 public class MainMenuUIScript : MonoBehaviour
 {
+    public GameObject MainMenuPanel;
+    public GameObject UserManualPage1Panel;
+    public GameObject UserManualPage2Panel;
+    public GameObject UserManualPage3Panel;
 
     // Exit Button Functionality
     public void QuitApplication()
@@ -15,24 +19,8 @@ public class MainMenuUIScript : MonoBehaviour
     }
 
     // Open User Manual
-    public void OpenUserManual()
-    {
-        SceneManager.LoadScene("UI_UserManual", LoadSceneMode.Single);
-    }
 
 
-    public void OpenMainMenu()
-    {
-        SceneManager.LoadScene("MainMenuNetworking", LoadSceneMode.Single);
-    }
 
-    public void OpenUserManualPage2()
-    {
-        SceneManager.LoadScene("UI_UserManualPageTwo", LoadSceneMode.Single);
-    }
 
-    public void OpenUserManualPage3()
-    {
-        SceneManager.LoadScene("UI_UserManualPageThree", LoadSceneMode.Single);
-    }
 }
