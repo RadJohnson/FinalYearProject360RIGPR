@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Networking/MainMenuNetworking.unity
     guid: 33ce2945fef5b4b45a864a5b0041f246
   - enabled: 1
-    path: Assets/Scenes/Networking/360VideoUINetwork.unity
+    path: Assets/Scenes/Networking/360VideoUINetworking.unity
     guid: c0bd3c03c1f033541abe706289ea6809
   - enabled: 1
     path: Assets/Scenes/Networking/DesktopWaitingRoomNetworking.unity

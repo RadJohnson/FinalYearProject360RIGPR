@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Video;
+using Unity.Netcode;
+using Unity.VisualScripting;
+using System.Collections.Generic;
 
 
 public class VideoPlayingUIManager : MonoBehaviour
@@ -31,7 +34,7 @@ public class VideoPlayingUIManager : MonoBehaviour
     [SerializeField] public Button addbookmarkBtn;
 
     // Buttons
-    [Space(10),Header("VideoPlayer UI")]
+    [Space(10), Header("VideoPlayer UI")]
     [SerializeField] public Button exitBtn;
     [SerializeField] public Button pauseplayBtn;
     [SerializeField] public Button restartBtn;
@@ -39,9 +42,9 @@ public class VideoPlayingUIManager : MonoBehaviour
     [SerializeField] public Button skipbwdBtn;
     //Slider
     [SerializeField] public Slider videoSlider;
-    
+
     //Color Buttons
-    [Space(10),Header("AnnotationButtons")]
+    [Space(10), Header("AnnotationButtons")]
     [SerializeField] public Button yellowBtn;
     [SerializeField] public Button blueBtn;
     [SerializeField] public Button redBtn;
@@ -50,7 +53,7 @@ public class VideoPlayingUIManager : MonoBehaviour
     [SerializeField] public Button eraserBtn;
     [SerializeField] public Button clearAllBtn;
 
-    [Space(10),Header("????")]
+    [Space(10), Header("????")]
     //Save FIle
     public string saveFilePath;
 
@@ -62,6 +65,8 @@ public class VideoPlayingUIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        videoPlayer = FindAnyObjectByType<VideoPlayer>();
+
         // Set video player url
         videoPlayer.url = ChosenVideoScript.VideoFilePath;
 
@@ -102,11 +107,17 @@ public class VideoPlayingUIManager : MonoBehaviour
         StartCoroutine(StartTimer());
         StopCoroutine(StartTimer());
 
+        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(videoPlayer.url);
+
         // Create a location for the bookmark file saving
-        saveFilePath = Application.persistentDataPath + "/BookmarkSaves.json";
+        saveFilePath = Application.streamingAssetsPath + $"/{fileNameWithoutExtension}.json";// see abvout changing this to the streaming assets folder
+
+        //saveFilePath = Application.streamingAssetsPath + ;
 
 
         // ~Currently breaks the program so is commented for pushing to branch~ LoadBookmarks();
+
+        //videoSlider.onValueChanged.AddListener(UpdateVideoTimeLine);
     }
 
 
@@ -114,8 +125,14 @@ public class VideoPlayingUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        videoSlider.value = videoPlayer.frame;
+        videoSlider.value = videoPlayer.frame;//this may ned to cahgne to make the slider work
     }
+
+    void UpdateVideoTimeLine(float sliderValue)
+    {
+        videoPlayer.frame = (long)sliderValue;
+    }
+
 
     public void Play_Pause()
     {
@@ -137,14 +154,15 @@ public class VideoPlayingUIManager : MonoBehaviour
 
         SaveBookmarks();
 
-        SceneManager.LoadScene("WaitingRoomNetworking");
+        NetworkManager.Singleton.SceneManager.LoadScene("MainMenuNetworking", LoadSceneMode.Single);
+
+        //SceneManager.LoadScene("WaitingRoomNetworking");
         Debug.Log("Tried to exit");
     }
 
     public void Restart_Video()
     {
         videoPlayer.frame = 0;
-
     }
 
     public void OpenCloseBookmarksTab()
@@ -192,19 +210,39 @@ public class VideoPlayingUIManager : MonoBehaviour
     private void SaveBookmarks()
     {
 
-        var bookmarks = GameObject.FindGameObjectsWithTag("bookmark");
-        string numberOfBookmarks = bookmarks.Length.ToString();
-        File.WriteAllText(saveFilePath, numberOfBookmarks);
-
+        GameObject[] bookmarks = GameObject.FindGameObjectsWithTag("bookmark");
+        List<BookmarkIconScript> bookmarkdata = new();
         foreach (var bookmark in bookmarks)
         {
-            string bookmarkName = JsonUtility.ToJson(bookmark.GetComponent<BookmarkIconScript>(), true);
+            bookmarkdata.Add(bookmark.GetComponent<BookmarkIconScript>());
+        }
 
+        //string numberOfBookmarks = bookmarks.Length.ToString();
+        //File.WriteAllText(saveFilePath, numberOfBookmarks);
+
+        for (int i = 0; i < bookmarkdata.Count; i++)
+        {
+            string bookmarkName = JsonUtility.ToJson(bookmarkdata[i], true);
 
             File.WriteAllText(saveFilePath, bookmarkName);
-
-
         }
+
+
+
+        //string baseFilePath = Path.Combine(Application.persistentDataPath, SceneManager.GetActiveScene().name);
+        //if (_saveInFolder)
+        //{
+        //    baseFilePath = Path.Combine(baseFilePath, $"Generation_{_generationNumber}");
+        //    Directory.CreateDirectory(baseFilePath);
+        //}
+
+        //for (int i = 0; i < bookmarks.Length; i++)
+        //{
+        //    var contentToSave = JsonUtility.ToJson(_nets[i], true);
+        //    string filePath = Path.Combine(baseFilePath, $"NeuralNetwork_{i}.json");
+        //    File.WriteAllText(filePath, contentToSave);
+        //}
+
     }
 
     public void LoadBookmarks()
@@ -223,7 +261,6 @@ public class VideoPlayingUIManager : MonoBehaviour
             BIcon.transform.SetParent(BookmarksGrid.transform);
             BIcon.GetComponent<BookmarkIconScript>().bookmarkData.BookmarkNameData = newBookmarkIconScriptData.BookmarkNameData;
             BIcon.GetComponent<BookmarkIconScript>().bookmarkData.BookmarkTimeData = newBookmarkIconScriptData.BookmarkTimeData;
-
         }
         //}
     }
@@ -231,7 +268,6 @@ public class VideoPlayingUIManager : MonoBehaviour
     private void skipFwd()
     {
         videoPlayer.frame += 60 * 5;
-
     }
 
     private void skipBwd()
@@ -274,12 +310,12 @@ public class VideoPlayingUIManager : MonoBehaviour
 
     IEnumerator StartTimer(float countTime = 2.5f)
     {
-       
+
         yield return new WaitForSeconds(countTime);
 
 
         videoSlider.maxValue = videoPlayer.frameCount;
         videoSlider.value = videoPlayer.frame;
-        
+
     }
 }

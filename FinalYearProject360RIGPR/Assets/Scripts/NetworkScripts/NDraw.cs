@@ -15,12 +15,12 @@ public class NDraw : NetworkBehaviour
     private bool _touchedLastFrame;
     private NDrawSurface lastUsedDrawSurface;
 
-    [Space(5),Header("HostPrefabUI")]
+    [Space(5), Header("HostPrefabUI")]
     [SerializeField] private GameObject MainMenuScenePrefab;
     [SerializeField] private GameObject VideoUIPrefab;
-    
+
     private bool prefabSpawned = false;
-    
+
     private void Start()
     {
         Reset();
@@ -32,40 +32,23 @@ public class NDraw : NetworkBehaviour
 
         if (IsHost)
         {
-            if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(1) && prefabSpawned == false)
+            if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(1))
             {
-                Instantiate(MainMenuScenePrefab);
-        
-                prefabSpawned = true;
-            }
-            if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2) && prefabSpawned == false)
-            {
-                Instantiate(VideoUIPrefab);
-        
-                VideoUIPrefab.GetComponent<VideoPlayingUIManager>().drawScript = this;
-        
-                prefabSpawned = true;
-            }
-        }
-    }
+                var existingObject = GameObject.FindWithTag("HostUI");
 
-    public void OnSceneChanged()
-    {
-        // Check if the player is the host
-        if (IsHost)
-        {
-            // Check if the next scene is the first scene and the prefab hasn't been spawned yet
-            if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(1) && !prefabSpawned)
-            {
-                Instantiate(MainMenuScenePrefab);
-                prefabSpawned = true;
+                if (existingObject == null)
+                    Instantiate(MainMenuScenePrefab);
+
             }
-            // Check if the next scene is the second scene and the prefab hasn't been spawned yet
-            else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2) && !prefabSpawned)
+            if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2))
             {
-                Instantiate(VideoUIPrefab);
-                VideoUIPrefab.GetComponent<VideoPlayingUIManager>().drawScript = this;
-                prefabSpawned = true;
+                var existingObject = GameObject.FindWithTag("HostUI");
+
+                if (existingObject == null)
+                {
+                    GameObject UIInstance = Instantiate(VideoUIPrefab);
+                    UIInstance.GetComponent<VideoPlayingUIManager>().drawScript = this;
+                }
             }
         }
     }
@@ -76,12 +59,12 @@ public class NDraw : NetworkBehaviour
 
         Ray ray = rayOrigin.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;//this line could be more efficient but only by not remaking the var every update overall impact is negligable
-        Debug.DrawRay(ray.origin, ray.direction, Color.red);
+        //Debug.DrawRay(ray.origin, ray.direction, Color.red);
         if (Input.GetMouseButton(1) && IsHost)
             if (Physics.Raycast(ray, out hit))
             {
 
-                Debug.Log(hit.distance + hit.transform.name);
+                //Debug.Log(hit.distance + hit.transform.name);
 
                 drawSurface = hit.collider.gameObject.GetComponent<NDrawSurface>();
 

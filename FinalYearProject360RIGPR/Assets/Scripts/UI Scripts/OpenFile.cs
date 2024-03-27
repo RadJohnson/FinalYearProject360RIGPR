@@ -26,7 +26,7 @@ public class OpenFile : MonoBehaviour
     void Start()
     {
         DirectoryInfo dir = new DirectoryInfo(VideoFolderpath);     // Create info for the given video folder path
-        FileInfo[] info = dir.GetFiles("*.*");                // store files in folder as an array called fileinfo
+        FileInfo[] info = dir.GetFiles("*.mp4");                // store files in folder as an array called fileinfo
         foreach (FileInfo f in info)
         {
             // Add into ui grid
@@ -37,12 +37,8 @@ public class OpenFile : MonoBehaviour
             VIcon.GetComponent<VideoIconScript>().VideoFileName = f.Name;
             VIcon.GetComponent<VideoIconScript>().videoNameTxt.text = f.Name.ToString();
  
-
-
             //Get Video Thumbnail
             // VIcon.GetComponent<Image>().sprite = ;
-
-  
         }
     }
 

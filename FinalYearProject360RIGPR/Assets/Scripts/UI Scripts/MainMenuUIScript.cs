@@ -7,21 +7,6 @@ using UnityEngine.Video;
 
 public class MainMenuUIScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-   
-    void Start()
-    {
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    
-    }
-
 
     // Exit Button Functionality
     public void QuitApplication()
@@ -50,10 +35,4 @@ public class MainMenuUIScript : MonoBehaviour
     {
         SceneManager.LoadScene("UI_UserManualPageThree", LoadSceneMode.Single);
     }
-    
-
-
-
-
-
 }

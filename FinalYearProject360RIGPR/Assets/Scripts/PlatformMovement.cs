@@ -17,6 +17,8 @@ public class PlatformMovement : MonoBehaviour
     private float timeSinceLastPause = 0f;
     private int currentObjectIndex = 0;
     private List<GameObject> objectsToCycle;
+    [SerializeField]private Transform targetPosition;
+
     void Start()
     {
         InstantiateObjects();
@@ -46,9 +48,12 @@ public class PlatformMovement : MonoBehaviour
     {
         if (isRaising)
         {
-            platform.Translate(Vector3.up * raiseSpeed * Time.deltaTime);
+            //platform.Translate(Vector3.up * raiseSpeed * Time.deltaTime);
 
-            if (platform.position.y >= 0f) // maximum height 
+            platform.position = Vector3.MoveTowards(transform.position, targetPosition.position, raiseSpeed * Time.deltaTime);
+
+
+            if (platform.position == targetPosition.position) // maximum height 
             {
                 isRaising = false;
                 timeSinceLastPause = Time.time;

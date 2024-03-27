@@ -11,7 +11,8 @@ public class BookmarkIconScript : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] public string BookmarkName;
-    public TMP_Text BookmarkNameTxtObj;
+    public TMP_Text BookmarkNameText;
+    public TMP_Text BookmarkTimeText;
     [SerializeField] public long BookmarkTime;
 
     public VideoPlayer videoPlayer;
@@ -26,40 +27,25 @@ public class BookmarkIconScript : MonoBehaviour
         [SerializeField] public long BookmarkTimeData;
     }
     [SerializeField] public BookmarkData bookmarkData;
+
     void Start()
     {
-
-
         JumpToTimeBtn.onClick.AddListener(JumpToTime); //Jump to the bookmarks time
         DeleteBookmarkBtn.onClick.AddListener(DeleteBookmark); // Delete bookmark
-
         videoPlayer = GameObject.Find("VIDEO SPHERE").GetComponent<VideoPlayer>();
-
-
-        BookmarkNameTxtObj.text = bookmarkData.BookmarkNameData;
-
-
+        BookmarkNameText.text = bookmarkData.BookmarkNameData;
+        TimeSpan timeSpan = TimeSpan.FromSeconds(bookmarkData.BookmarkTimeData);
+        BookmarkTimeText.text = timeSpan.ToString("mm':'ss");
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 
     public void JumpToTime()
     {
         // Set current video time to bookmarkTime
-        videoPlayer.frame = bookmarkData.BookmarkTimeData;
-
+        videoPlayer.time = bookmarkData.BookmarkTimeData;
     }
 
     public void DeleteBookmark()
     {
         Destroy(this.gameObject);
     }
-
-
-
 }

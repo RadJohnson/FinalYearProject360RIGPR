@@ -41,7 +41,7 @@ public class NDrawSurface : NetworkBehaviour
         var r = gameObject.GetComponent<Renderer>();
         texture = new Texture2D(textureSize.x, textureSize.y);
 
-        initialColour = Enumerable.Repeat(new Color(1, 1, 1, 1), textureSize.x * textureSize.y).ToArray();
+        initialColour = Enumerable.Repeat(new Color(1, 1, 1, 0), textureSize.x * textureSize.y).ToArray();
         texture.SetPixels(initialColour);
         initialColour = new Color[1];
         texture.Apply();

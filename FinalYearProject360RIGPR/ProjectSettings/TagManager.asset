@@ -6,6 +6,7 @@ TagManager:
   tags:
   - bookmark
   - SpawnPoint
+  - HostUI
   layers:
   - Default
   - TransparentFX
