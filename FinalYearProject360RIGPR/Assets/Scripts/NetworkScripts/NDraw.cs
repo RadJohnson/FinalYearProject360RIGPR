@@ -43,22 +43,8 @@ public class NDraw : NetworkBehaviour
                 var existingObject = GameObject.FindWithTag("HostUI");
 
                 if (existingObject == null)
-                {
                     Instantiate(MainMenuScenePrefab);
 
-                }
-                GameObject IpContainer = GameObject.FindWithTag("IP");
-
-                IPHostEntry hostEntry = Dns.GetHostEntry(Dns.GetHostName());
-                foreach (IPAddress ip in hostEntry.AddressList)
-                {
-                    if (ip.AddressFamily == AddressFamily.InterNetwork)
-                    {
-                        myAddressLocal = ip.ToString();
-                        break;
-                    }
-                }
-                IpContainer.GetComponent<TMP_Text>().text = myAddressLocal;
             }
             if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2))
             {
@@ -84,6 +70,7 @@ public class NDraw : NetworkBehaviour
             }
         }
     }
+
 
     private void DrawPixels()
     {
@@ -135,7 +122,7 @@ public class NDraw : NetworkBehaviour
 
     internal void ChangeToEraser()
     {
-        colors = Enumerable.Repeat(new Color(0, 0, 0, 0), (penSize + 10) * (penSize + 10)).ToArray();
+        colors = Enumerable.Repeat(new Color(0, 0, 0, 0), (penSize + 8) * (penSize + 8)).ToArray();
     }
 
     internal void ChangeBrushColour(Color newColor)

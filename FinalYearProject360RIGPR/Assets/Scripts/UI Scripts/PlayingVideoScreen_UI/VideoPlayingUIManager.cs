@@ -7,7 +7,6 @@ using UnityEngine;
 using UnityEngine.Video;
 using Unity.Netcode;
 using System.Collections.Generic;
-using System;
 
 
 public class VideoPlayingUIManager : MonoBehaviour
@@ -43,7 +42,7 @@ public class VideoPlayingUIManager : MonoBehaviour
     [SerializeField] public Button skipfwdBtn;
     [SerializeField] public Button skipbwdBtn;
     //Slider
-    [SerializeField] public Slider timeLineSlider;
+    [SerializeField] public Slider videoSlider;
 
     //Color Buttons
     [Space(10), Header("AnnotationButtons")]
@@ -72,8 +71,6 @@ public class VideoPlayingUIManager : MonoBehaviour
         // Set video player url
         videoPlayer.url = ChosenVideoScript.VideoFilePath;
 
-        videoPlayer.prepareCompleted += OnVideoPrepared;
-
         BookmarkNameInput = GameObject.Find("BookmarkNameInputField").GetComponent<TMP_InputField>();
 
         isBookmarksOpen = false;
@@ -87,44 +84,58 @@ public class VideoPlayingUIManager : MonoBehaviour
         pauseplayBtn.onClick.AddListener(Play_Pause); // Play pause button
         openbookmarksBtn.onClick.AddListener(OpenCloseBookmarksTab); // Open Bookmarks Tab
         addbookmarkBtn.onClick.AddListener(AddBookmark);
-        skipfwdBtn.onClick.AddListener(SkipFwd);
-        skipbwdBtn.onClick.AddListener(SkipBwd);
+        skipfwdBtn.onClick.AddListener(skipFwd);
+        skipbwdBtn.onClick.AddListener(skipBwd);
 
         //Colour Button Binding
-        blueBtn.onClick.AddListener(ChangeColourBlue);
-        redBtn.onClick.AddListener(ChangeColourRed);
-        yellowBtn.onClick.AddListener(ChangeColourYellow);
-        greenBtn.onClick.AddListener(ChangeColourGreen);
-        eraserBtn.onClick.AddListener(Eraser);
+        blueBtn.onClick.AddListener(changeColourBlue);
+        redBtn.onClick.AddListener(changeColourRed);
+        yellowBtn.onClick.AddListener(changeColourYellow);
+        greenBtn.onClick.AddListener(changeColourGreen);
+        eraserBtn.onClick.AddListener(eraser);
         clearAllBtn.onClick.AddListener(() =>
         {
             foreach (var item in drawSurfaceScripts)
             {
-                ClearAll(item);
+                clearAll(item);
             }
         });
 
 
         isBookmarksOpen = false;
 
-        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(videoPlayer.url);
-        // Create a location for the bookmark file saving
-        saveFilePath = Application.streamingAssetsPath + $"/{fileNameWithoutExtension}";
 
-        if (Directory.Exists(saveFilePath))
-        {
-            LoadBookmarks();
-        }
+
+        string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(videoPlayer.url);
+
+        // Create a location for the bookmark file saving
+        saveFilePath = Application.streamingAssetsPath + $"/{fileNameWithoutExtension}.json";// see abvout changing this to the streaming assets folder
+
+        //saveFilePath = Application.streamingAssetsPath + ;
+
+
+        // ~Currently breaks the program so is commented for pushing to branch~ LoadBookmarks();
+
+        //videoSlider.onValueChanged.AddListener(UpdateVideoTimeLine);
     }
 
+
+
+    // Update is called once per frame
     void Update()
     {
-        timeLineSlider.value = (float)videoPlayer.time;
+        videoSlider.value = videoPlayer.frame;//this may ned to cahgne to make the slider work
     }
+
+    void UpdateVideoTimeLine(float sliderValue)
+    {
+        videoPlayer.frame = (long)sliderValue;
+    }
+
 
     public void Play_Pause()
     {
-        if (videoPlayer.isPlaying)
+        if (videoPlayer.isPlaying) // If video is playing then...
         {
             // Pause Video
             videoPlayer.Pause();
@@ -135,10 +146,10 @@ public class VideoPlayingUIManager : MonoBehaviour
 
             videoPlayer.Play();
 
-            if (!hasPlayedForFirstTime)
+            if(!hasPlayedForFirstTime)
             {
-                timeLineSlider.maxValue = videoPlayer.frameCount;
-                timeLineSlider.value = videoPlayer.frame;
+                videoSlider.maxValue = videoPlayer.frameCount;
+                videoSlider.value = videoPlayer.frame;
 
                 hasPlayedForFirstTime = true;
             }
@@ -149,18 +160,18 @@ public class VideoPlayingUIManager : MonoBehaviour
 
     public void Exit_Video()
     {
+
         SaveBookmarks();
 
         NetworkManager.Singleton.SceneManager.LoadScene("MainMenuNetworking", LoadSceneMode.Single);
+
+        //SceneManager.LoadScene("WaitingRoomNetworking");
         Debug.Log("Tried to exit");
     }
 
     public void Restart_Video()
     {
-        if (videoPlayer.time != 0)
-        {
-            videoPlayer.time = 0;
-        }
+        videoPlayer.frame = 0;
     }
 
     public void OpenCloseBookmarksTab()
@@ -191,13 +202,19 @@ public class VideoPlayingUIManager : MonoBehaviour
         BIcon = Instantiate(BookmarkIcon);
         BIcon.transform.SetParent(BookmarksGrid.transform);
         BIcon.GetComponent<BookmarkIconScript>().bookmarkData.BookmarkNameData = BookmarkNameInput.text;
-        BIcon.GetComponent<BookmarkIconScript>().bookmarkData.BookmarkTimeData = videoPlayer.time;
+        BIcon.GetComponent<BookmarkIconScript>().bookmarkData.BookmarkTimeData = videoPlayer.frame;
 
 
 
         Debug.Log(BookmarkNameInput.text);
         BookmarkNameInput.text = "Unnamed";
+
+        // BIcon.GetComponent<BookmarkIconScript>().BookmarkTime = CurrentVideoTime
+
+
+
     }
+
 
     private void SaveBookmarks()
     {
@@ -209,79 +226,105 @@ public class VideoPlayingUIManager : MonoBehaviour
             bookmarkdata.Add(bookmark.GetComponent<BookmarkIconScript>());
         }
 
-        Directory.CreateDirectory(saveFilePath);
+        //string numberOfBookmarks = bookmarks.Length.ToString();
+        //File.WriteAllText(saveFilePath, numberOfBookmarks);
 
         for (int i = 0; i < bookmarkdata.Count; i++)
         {
-            string bookmarkName = JsonUtility.ToJson(bookmarkdata[i].bookmarkData, true);
+            string bookmarkName = JsonUtility.ToJson(bookmarkdata[i], true);
 
-            string filePath = Path.Combine(saveFilePath, $"BookMark{i}.json");
-            File.WriteAllText(filePath, bookmarkName);
+            File.WriteAllText(saveFilePath, bookmarkName);
         }
+
+
+
+        //string baseFilePath = Path.Combine(Application.persistentDataPath, SceneManager.GetActiveScene().name);
+        //if (_saveInFolder)
+        //{
+        //    baseFilePath = Path.Combine(baseFilePath, $"Generation_{_generationNumber}");
+        //    Directory.CreateDirectory(baseFilePath);
+        //}
+
+        //for (int i = 0; i < bookmarks.Length; i++)
+        //{
+        //    var contentToSave = JsonUtility.ToJson(_nets[i], true);
+        //    string filePath = Path.Combine(baseFilePath, $"NeuralNetwork_{i}.json");
+        //    File.WriteAllText(filePath, contentToSave);
+        //}
+
     }
 
     public void LoadBookmarks()
     {
-        string[] fileEntries = Directory.GetFiles(saveFilePath, "*.json");
-        foreach (string fileName in fileEntries)
+        // For the number of bookmarks
+
+        //foreach (var bookmark in bookmarks)
+
+        string newBookmark = File.ReadAllText(saveFilePath);
+        BookmarkIconScript.BookmarkData newBookmarkIconScriptData = JsonUtility.FromJson<BookmarkIconScript.BookmarkData>(newBookmark);
+
+        if (newBookmarkIconScriptData != null)
         {
-            string fileContents = File.ReadAllText(fileName);
-            BookmarkIconScript bookmark = new BookmarkIconScript();
-
-            bookmark.bookmarkData = JsonUtility.FromJson<BookMarkData>(fileContents);
-
             GameObject BIcon;
             BIcon = Instantiate(BookmarkIcon);
             BIcon.transform.SetParent(BookmarksGrid.transform);
-            BIcon.GetComponent<BookmarkIconScript>().bookmarkData = bookmark.bookmarkData;
+            BIcon.GetComponent<BookmarkIconScript>().bookmarkData.BookmarkNameData = newBookmarkIconScriptData.BookmarkNameData;
+            BIcon.GetComponent<BookmarkIconScript>().bookmarkData.BookmarkTimeData = newBookmarkIconScriptData.BookmarkTimeData;
         }
+        //}
     }
 
-
-    private void SkipFwd()
+    private void skipFwd()
     {
-        videoPlayer.time += 5;
+        videoPlayer.frame += 60 * 5;
     }
 
-    private void SkipBwd()
+    private void skipBwd()
     {
-        videoPlayer.time -= 5;
+        videoPlayer.frame -= 60 * 5;
     }
 
 
-    private void ChangeColourRed()
+    private void changeColourRed()
     {
         drawScript.ChangeBrushColour(Color.red);
     }
 
-    private void ChangeColourYellow()
+    private void changeColourYellow()
     {
         drawScript.ChangeBrushColour(Color.yellow);
     }
 
-    private void ChangeColourBlue()
+    private void changeColourBlue()
     {
         drawScript.ChangeBrushColour(Color.blue);
     }
 
-    private void ChangeColourGreen()
+    private void changeColourGreen()
     {
         drawScript.ChangeBrushColour(Color.green);
     }
 
-    private void Eraser()
+    private void eraser()
     {
         drawScript.ChangeToEraser();
+
     }
 
-    private void ClearAll(NDrawSurface _drawSurface)
+    private void clearAll(NDrawSurface _drawSurface)
     {
         _drawSurface.Start();
     }
 
-    void OnVideoPrepared(VideoPlayer source)
+
+    IEnumerator StartTimer(float countTime = 3f)
     {
-        timeLineSlider.minValue = 0;
-        timeLineSlider.maxValue = (float)videoPlayer.length;
+
+        yield return new WaitForSeconds(countTime);
+
+
+        videoSlider.maxValue = videoPlayer.frameCount;
+        videoSlider.value = videoPlayer.frame;
+
     }
 }
