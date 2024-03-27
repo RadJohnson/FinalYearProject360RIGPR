@@ -1,50 +1,48 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Video;
 using System;
+using Unity.VisualScripting;
 
 [Serializable]
 public class BookmarkIconScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    [SerializeField] public string BookmarkName;
-    public TMP_Text BookmarkNameText;
-    public TMP_Text BookmarkTimeText;
-    [SerializeField] public long BookmarkTime;
+    private VideoPlayer videoPlayer;
 
-    public VideoPlayer videoPlayer;
+    private Button JumpToTimeBtn;
+    private Button DeleteBookmarkBtn;
+    private TMP_Text BookmarkNameText;
+    private TMP_Text BookmarkTimeText;
 
-    [SerializeField] private Button JumpToTimeBtn;
-    [SerializeField] private Button DeleteBookmarkBtn;
+    [SerializeField] internal BookMarkData bookmarkData;
 
-    [Serializable]
-    public class BookmarkData
+    internal void Start()
     {
-        [SerializeField] public string BookmarkNameData;
-        [SerializeField] public long BookmarkTimeData;
-    }
-    [SerializeField] public BookmarkData bookmarkData;
+        var buttons = GetComponentsInChildren<Button>();
+        buttons[0].onClick.AddListener(JumpToTime); //Jump to the bookmarks time
+        buttons[1].onClick.AddListener(DeleteBookmark); // Delete bookmark
 
-    void Start()
-    {
-        JumpToTimeBtn.onClick.AddListener(JumpToTime); //Jump to the bookmarks time
-        DeleteBookmarkBtn.onClick.AddListener(DeleteBookmark); // Delete bookmark
         videoPlayer = GameObject.Find("VIDEO SPHERE").GetComponent<VideoPlayer>();
-        BookmarkNameText.text = bookmarkData.BookmarkNameData;
+
+        var text = GetComponentsInChildren<TMP_Text>();
+        text[0].text = bookmarkData.BookmarkNameData;
+
+
         TimeSpan timeSpan = TimeSpan.FromSeconds(bookmarkData.BookmarkTimeData);
-        BookmarkTimeText.text = timeSpan.ToString("mm':'ss");
+        text[1].text = timeSpan.ToString("mm':'ss");
     }
 
-    public void JumpToTime()
+    private void JumpToTime()
     {
         // Set current video time to bookmarkTime
-        videoPlayer.time = bookmarkData.BookmarkTimeData;
+        if (videoPlayer.time != bookmarkData.BookmarkTimeData)
+        {
+            videoPlayer.time = bookmarkData.BookmarkTimeData;
+        }
     }
 
-    public void DeleteBookmark()
+    private void DeleteBookmark()
     {
         Destroy(this.gameObject);
     }
